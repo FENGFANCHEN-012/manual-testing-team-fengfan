@@ -22,7 +22,7 @@ Solo submission: member-a (FENGFANCHEN-012) executes every guided test, includin
 | Test type | Positive |
 | Tester | member-a |
 | Website | SauceDemo |
-| Status | Not run |
+| Status | Pass |
 
 #### Purpose
 
@@ -54,12 +54,11 @@ The inventory page appears and products are visible.
 
 #### Actual Result
 
-Not recorded — test has not been executed.
+Executed 8 Nov 2026, 2:17 pm. After selecting Login, the browser moved to `/inventory.html`. The page title showed "Products" and 6 product items were listed. No error message appeared.
 
 #### Evidence
 
-Not captured.
-
+[View screenshot](../evidence/member-a/login-p01.png)
 ---
 
 ### Test ID: LOGIN-N01
@@ -69,7 +68,7 @@ Not captured.
 | Test type | Negative |
 | Tester | member-a |
 | Website | SauceDemo |
-| Status | Not run |
+| Status | Pass |
 
 #### Purpose
 
@@ -100,12 +99,11 @@ Login is rejected, error feedback appears, and the inventory is not reached.
 
 #### Actual Result
 
-Not recorded — test has not been executed.
+Executed 8 Nov 2026, 2:18 pm. The page stayed on the login page (`/`). An error banner appeared: "Epic sadface: Username and password do not match any user in this service". No products were shown, so the inventory was not reached. The rejection is the expected behaviour, so this negative test passes.
 
 #### Evidence
 
-Not captured.
-
+[View screenshot](../evidence/member-a/login-n01.png)
 ---
 
 ### Test ID: LOGIN-N02
@@ -115,7 +113,7 @@ Not captured.
 | Test type | Negative |
 | Tester | member-a |
 | Website | SauceDemo |
-| Status | Not run |
+| Status | Pass |
 
 #### Purpose
 
@@ -146,12 +144,11 @@ The attempt is rejected with validation feedback. The inventory is not reached.
 
 #### Actual Result
 
-Not recorded — test has not been executed.
+Executed 8 Nov 2026, 2:18 pm. The page stayed on the login page. An error banner appeared: "Epic sadface: Password is required". The inventory was not reached.
 
 #### Evidence
 
-Not captured.
-
+[View screenshot](../evidence/member-a/login-n02.png)
 ---
 
 ### Test ID: LOGIN-N03
@@ -161,7 +158,7 @@ Not captured.
 | Test type | Negative |
 | Tester | member-a |
 | Website | SauceDemo |
-| Status | Not run |
+| Status | Pass |
 
 #### Purpose
 
@@ -192,12 +189,11 @@ The attempt is rejected with validation feedback. The inventory is not reached.
 
 #### Actual Result
 
-Not recorded — test has not been executed.
+Executed 8 Nov 2026, 2:19 pm. The page stayed on the login page. An error banner appeared: "Epic sadface: Username is required". The inventory was not reached.
 
 #### Evidence
 
-Not captured.
-
+[View screenshot](../evidence/member-a/login-n03.png)
 ---
 
 ### Test ID: LOGIN-R01
@@ -207,7 +203,7 @@ Not captured.
 | Test type | Recovery |
 | Tester | member-a |
 | Website | SauceDemo |
-| Status | Not run |
+| Status | Pass |
 
 #### Purpose
 
@@ -241,12 +237,17 @@ The invalid attempt is rejected. After correcting the password, login succeeds.
 
 #### Actual Result
 
-Not recorded — test has not been executed.
+Executed 8 Nov 2026, 2:19 pm.
+
+- Stage 1 (wrong password): the page stayed on the login page and showed "Epic sadface: Username and password do not match any user in this service". No products shown.
+- Stage 2 (password replaced with `secret_sauce`, username left as typed, page not reloaded): the browser moved to `/inventory.html`, the title showed "Products" and 6 products were listed.
+
+The invalid attempt did not block the later valid login.
 
 #### Evidence
 
-Not captured.
-
+- [Stage 1 — rejected](../evidence/member-a/login-r01-stage1.png)
+- [Stage 2 — inventory reached](../evidence/member-a/login-r01.png)
 ---
 
 ## Equivalence Partitioning
