@@ -722,3 +722,215 @@ Executed 8 Nov 2026, 2:22:37 pm. Selecting Submit did **not** send the form: the
 Observation: on this form the rejections of 17 and 81 came from the browser's HTML5 `min="18" max="80"` attributes, before the request reached the server. The page's own JavaScript check (visible in the page source) only rejects ages below 16 or above 100, so the three layers of validation do not agree. Server-side behaviour for 17 and 81 was **not** tested, because that needs requests outside normal browser use.
 
 ## 3-Point Boundary Tests
+
+Convention: ISTQB CTFL v4.0 3-value BVA — for each boundary value (17, 18, 80, 81) test one below, the value, and one above. After removing duplicates: **16, 17, 18, 19, 79, 80, 81, 82**.
+
+New executions: 16, 19, 79, 82 (below). Reused executions: 17, 18, 80, 81.
+
+### Ages 17, 18, 80 and 81 — Reused Executions
+
+- Original tests: `AGE-2P-17-A`, `AGE-2P-18-A`, `AGE-2P-80-A`, `AGE-2P-81-A`
+- Tester: `member-a`
+- Record: [2-Point Boundary Tests](#2-point-boundary-tests) in this file
+- Reason for reuse: same browser, same baseline (`Alexa` / `TestingStudent` / `Singapore`), same procedure, executed minutes earlier on 8 Nov 2026.
+
+### Test ID: AGE-3P-16-A
+
+| Item | Details |
+|---|---|
+| Test type | Negative |
+| Tester | member-a |
+| Website | Test Pages validation form |
+| Technique | 3-point boundary testing (ISTQB CTFL v4.0, 8-value convention) |
+| Status | Pass |
+
+#### Purpose
+
+Check that age 16, two below the minimum (neighbour of boundary value 17), is rejected.
+
+#### Preconditions
+
+The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+
+#### Test Data
+
+| Field | Value |
+|---|---|
+| Age | `16` |
+| Other fields | Agreed valid baseline |
+
+#### Steps
+
+1. Open (restore) the validation form.
+2. Enter the agreed baseline.
+3. Replace age with `16` (typed).
+4. Select Submit.
+5. Observe the response.
+
+#### Expected Result
+
+Age 16 is rejected because it is below 18 (submission prevented or a validation error returned).
+
+#### Actual Result
+
+Executed 8 Nov 2026, 2:22:43 pm. Selecting Submit did **not** send the form: the page stayed on the form URL and no Validation Report appeared. The browser's built-in (HTML5) validation blocked it with the message `age`: "Value must be greater than or equal to 18." The age field contained `16` at submit time. This rejection came from the browser, not from the server.
+
+#### Evidence
+
+[View screenshot](../evidence/member-a/age-3p-16-a.png)
+
+---
+
+### Test ID: AGE-3P-19-A
+
+| Item | Details |
+|---|---|
+| Test type | Positive |
+| Tester | member-a |
+| Website | Test Pages validation form |
+| Technique | 3-point boundary testing (ISTQB CTFL v4.0, 8-value convention) |
+| Status | Pass |
+
+#### Purpose
+
+Check that age 19, one above the minimum (neighbour of boundary value 18), is accepted.
+
+#### Preconditions
+
+The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+
+#### Test Data
+
+| Field | Value |
+|---|---|
+| Age | `19` |
+| Other fields | Agreed valid baseline |
+
+#### Steps
+
+1. Open (restore) the validation form.
+2. Enter the agreed baseline.
+3. Replace age with `19` (typed).
+4. Select Submit.
+5. Observe the response.
+
+#### Expected Result
+
+Age 19 is accepted: the form submits and the server reports valid input with Age 19.
+
+#### Actual Result
+
+Executed 8 Nov 2026, 2:22:49 pm. The form submitted to the server (`/submit`). The server's Validation Report said: "Valid Input | Your Input passed validation". The "You submitted" section listed Age `19`. The input passed server validation.
+
+#### Evidence
+
+[View screenshot](../evidence/member-a/age-3p-19-a.png)
+
+---
+
+### Test ID: AGE-3P-79-A
+
+| Item | Details |
+|---|---|
+| Test type | Positive |
+| Tester | member-a |
+| Website | Test Pages validation form |
+| Technique | 3-point boundary testing (ISTQB CTFL v4.0, 8-value convention) |
+| Status | Pass |
+
+#### Purpose
+
+Check that age 79, one below the maximum (neighbour of boundary value 80), is accepted.
+
+#### Preconditions
+
+The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+
+#### Test Data
+
+| Field | Value |
+|---|---|
+| Age | `79` |
+| Other fields | Agreed valid baseline |
+
+#### Steps
+
+1. Open (restore) the validation form.
+2. Enter the agreed baseline.
+3. Replace age with `79` (typed).
+4. Select Submit.
+5. Observe the response.
+
+#### Expected Result
+
+Age 79 is accepted: the form submits and the server reports valid input with Age 79.
+
+#### Actual Result
+
+Executed 8 Nov 2026, 2:22:56 pm. The form submitted to the server (`/submit`). The server's Validation Report said: "Valid Input | Your Input passed validation". The "You submitted" section listed Age `79`. The input passed server validation.
+
+#### Evidence
+
+[View screenshot](../evidence/member-a/age-3p-79-a.png)
+
+---
+
+### Test ID: AGE-3P-82-A
+
+| Item | Details |
+|---|---|
+| Test type | Negative |
+| Tester | member-a |
+| Website | Test Pages validation form |
+| Technique | 3-point boundary testing (ISTQB CTFL v4.0, 8-value convention) |
+| Status | Pass |
+
+#### Purpose
+
+Check that age 82, two above the maximum (neighbour of boundary value 81), is rejected.
+
+#### Preconditions
+
+The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+
+#### Test Data
+
+| Field | Value |
+|---|---|
+| Age | `82` |
+| Other fields | Agreed valid baseline |
+
+#### Steps
+
+1. Open (restore) the validation form.
+2. Enter the agreed baseline.
+3. Replace age with `82` (typed).
+4. Select Submit.
+5. Observe the response.
+
+#### Expected Result
+
+Age 82 is rejected because it is above 80 (submission prevented or a validation error returned).
+
+#### Actual Result
+
+Executed 8 Nov 2026, 2:23:02 pm. Selecting Submit did **not** send the form: the page stayed on the form URL and no Validation Report appeared. The browser's built-in (HTML5) validation blocked it with the message `age`: "Value must be less than or equal to 80." The age field contained `82` at submit time. This rejection came from the browser, not from the server.
+
+#### Evidence
+
+[View screenshot](../evidence/member-a/age-3p-82-a.png)
+
+---
+
+
+### Coverage Comparison
+
+| Technique | Positive values | Negative values | Result |
+|---|---|---|---|
+| Equivalence partitioning | 30 | 10, 90 | All as expected |
+| 2-point BVA | 18, 80 | 17, 81 | All as expected |
+| 3-point BVA | 18, 19, 79, 80 | 16, 17, 81, 82 | All as expected |
+
+### Discussion Checkpoint
+
+3-point testing added the values just inside each edge (19, 79) and just outside the invalid boundary values (16, 82). These would catch off-by-one mistakes that only shift a boundary by one, or a rule written as `== 18` by accident. It still does not prove every input works: we tested 12 of the many possible values, only whole numbers, only one browser, and only the browser-side path. Decimals (e.g. 18.5), negative numbers, very long numbers, and what the **server** does with 17 or 81 when the browser checks are bypassed remain untested.
