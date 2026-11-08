@@ -36,7 +36,7 @@ Boundary value analysis on text length. First name: lower end (2, 3, 4, 5 charac
 | Test type | Negative? — see expected |
 | Tester | member-a |
 | Technique | Boundary value analysis on text length |
-| Status | Not run |
+| Status | Fail |
 
 #### Purpose
 
@@ -66,12 +66,11 @@ Per the published rule (must be filled, < 90 chars) a 2-character name should be
 
 #### Actual Result
 
-Not recorded — test has not been executed.
+Executed 8 Nov 2026, 2:24:02 pm. Selecting Submit did not send the form. The page's JavaScript showed the red message "Firstname provided is too short" under the field. The browser's HTML5 checks did not object. No request reached the server. This contradicts the published rule (only "must be filled"), so it is a Fail against the published requirement — or the requirement is missing a minimum length.
 
 #### Evidence
 
-Not captured.
-
+[View screenshot](../evidence/member-a/own-a-01.png)
 ---
 
 ### Test ID: OWN-A-02
@@ -81,7 +80,7 @@ Not captured.
 | Test type | Positive |
 | Tester | member-a |
 | Technique | Boundary value analysis on text length |
-| Status | Not run |
+| Status | Fail |
 
 #### Purpose
 
@@ -111,12 +110,11 @@ Accepted (filled and < 90 chars).
 
 #### Actual Result
 
-Not recorded — test has not been executed.
+Executed 8 Nov 2026, 2:24:08 pm. The browser and the page's JavaScript allowed the form through and it was submitted. The server's Validation Report said "Firstname Error — Firstname too short". So the JavaScript accepted 3 characters but the **server** rejected them: client and server disagree.
 
 #### Evidence
 
-Not captured.
-
+[View screenshot](../evidence/member-a/own-a-02.png)
 ---
 
 ### Test ID: OWN-A-03
@@ -126,7 +124,7 @@ Not captured.
 | Test type | Positive |
 | Tester | member-a |
 | Technique | Boundary value analysis on text length |
-| Status | Not run |
+| Status | Fail |
 
 #### Purpose
 
@@ -156,12 +154,11 @@ Accepted (filled and < 90 chars).
 
 #### Actual Result
 
-Not recorded — test has not been executed.
+Executed 8 Nov 2026, 2:24:14 pm. The browser and the page's JavaScript allowed the form through and it was submitted. The server's Validation Report said "Firstname Error — Firstname too short". Same result as the baseline check, so the rejection of `Alex` is repeatable.
 
 #### Evidence
 
-Not captured.
-
+[View screenshot](../evidence/member-a/own-a-03.png)
 ---
 
 ### Test ID: OWN-A-04
@@ -171,7 +168,7 @@ Not captured.
 | Test type | Positive |
 | Tester | member-a |
 | Technique | Boundary value analysis on text length |
-| Status | Not run |
+| Status | Pass |
 
 #### Purpose
 
@@ -201,12 +198,11 @@ Accepted.
 
 #### Actual Result
 
-Not recorded — test has not been executed.
+Executed 8 Nov 2026, 2:24:20 pm. The browser and the page's JavaScript allowed the form through and it was submitted. The server's Validation Report said "Valid Input — Your Input passed validation".
 
 #### Evidence
 
-Not captured.
-
+[View screenshot](../evidence/member-a/own-a-04.png)
 ---
 
 ### Test ID: OWN-A-05
@@ -216,7 +212,7 @@ Not captured.
 | Test type | Positive |
 | Tester | member-a |
 | Technique | Boundary value analysis on text length |
-| Status | Not run |
+| Status | Pass |
 
 #### Purpose
 
@@ -246,12 +242,11 @@ Accepted (89 < 90).
 
 #### Actual Result
 
-Not recorded — test has not been executed.
+Executed 8 Nov 2026, 2:24:26 pm. The browser and the page's JavaScript allowed the form through and it was submitted. The server's Validation Report said "Valid Input — Your Input passed validation". The 89-character name was listed in "You submitted".
 
 #### Evidence
 
-Not captured.
-
+[View screenshot](../evidence/member-a/own-a-05.png)
 ---
 
 ### Test ID: OWN-A-06
@@ -261,7 +256,7 @@ Not captured.
 | Test type | Negative |
 | Tester | member-a |
 | Technique | Boundary value analysis on text length |
-| Status | Not run |
+| Status | Pass |
 
 #### Purpose
 
@@ -291,12 +286,11 @@ Rejected (90 is not less than 90).
 
 #### Actual Result
 
-Not recorded — test has not been executed.
+Executed 8 Nov 2026, 2:24:32 pm. Selecting Submit did not send the form. The page's JavaScript showed the red message "Firstname provided is too long" under the field. The browser's HTML5 checks did not object. No request reached the server.
 
 #### Evidence
 
-Not captured.
-
+[View screenshot](../evidence/member-a/own-a-06.png)
 ---
 
 ### Test ID: OWN-A-07
@@ -306,7 +300,7 @@ Not captured.
 | Test type | Negative |
 | Tester | member-a |
 | Technique | Boundary value analysis on text length |
-| Status | Not run |
+| Status | Pass |
 
 #### Purpose
 
@@ -336,12 +330,11 @@ Rejected (surname must be 11–79 chars).
 
 #### Actual Result
 
-Not recorded — test has not been executed.
+Executed 8 Nov 2026, 2:24:38 pm. Selecting Submit did not send the form. The page's JavaScript showed the red message "Surname provided is too short" under the field. The browser's HTML5 checks did not object. No request reached the server.
 
 #### Evidence
 
-Not captured.
-
+[View screenshot](../evidence/member-a/own-a-07.png)
 ---
 
 ### Test ID: OWN-A-08
@@ -351,7 +344,7 @@ Not captured.
 | Test type | Positive |
 | Tester | member-a |
 | Technique | Boundary value analysis on text length |
-| Status | Not run |
+| Status | Pass |
 
 #### Purpose
 
@@ -381,12 +374,11 @@ Accepted.
 
 #### Actual Result
 
-Not recorded — test has not been executed.
+Executed 8 Nov 2026, 2:24:44 pm. The browser and the page's JavaScript allowed the form through and it was submitted. The server's Validation Report said "Valid Input — Your Input passed validation".
 
 #### Evidence
 
-Not captured.
-
+[View screenshot](../evidence/member-a/own-a-08.png)
 ---
 
 ### Test ID: OWN-A-09
@@ -396,7 +388,7 @@ Not captured.
 | Test type | Positive |
 | Tester | member-a |
 | Technique | Boundary value analysis on text length |
-| Status | Not run |
+| Status | Pass |
 
 #### Purpose
 
@@ -426,12 +418,11 @@ Accepted.
 
 #### Actual Result
 
-Not recorded — test has not been executed.
+Executed 8 Nov 2026, 2:24:50 pm. The browser and the page's JavaScript allowed the form through and it was submitted. The server's Validation Report said "Valid Input — Your Input passed validation".
 
 #### Evidence
 
-Not captured.
-
+[View screenshot](../evidence/member-a/own-a-09.png)
 ---
 
 ### Test ID: OWN-A-10
@@ -441,7 +432,7 @@ Not captured.
 | Test type | Negative |
 | Tester | member-a |
 | Technique | Boundary value analysis on text length |
-| Status | Not run |
+| Status | Pass |
 
 #### Purpose
 
@@ -471,12 +462,11 @@ Rejected.
 
 #### Actual Result
 
-Not recorded — test has not been executed.
+Executed 8 Nov 2026, 2:24:57 pm. Selecting Submit did not send the form. The page's JavaScript showed the red message "Surname provided is too long" under the field. The browser's HTML5 checks did not object. No request reached the server.
 
 #### Evidence
 
-Not captured.
-
+[View screenshot](../evidence/member-a/own-a-10.png)
 ---
 
 ### Test ID: OWN-A-11
@@ -486,7 +476,7 @@ Not captured.
 | Test type | Negative |
 | Tester | member-a |
 | Technique | Boundary value analysis on text length |
-| Status | Not run |
+| Status | Observation only |
 
 #### Purpose
 
@@ -516,18 +506,46 @@ Rejected, because 0 characters is not between 11 and 79. Assumption: "between 11
 
 #### Actual Result
 
-Not recorded — test has not been executed.
+Executed 8 Nov 2026, 2:25:02 pm. The browser and the page's JavaScript allowed the form through and it was submitted. The server's Validation Report said "Valid Input — Your Input passed validation". The empty surname was accepted by the browser, the JavaScript and the server. My expected result relied on an **assumption** that surname is required; the requirement does not say this, so I record it as an observation and a requirement question rather than a defect.
 
 #### Evidence
 
-Not captured.
-
+[View screenshot](../evidence/member-a/own-a-11.png)
 ---
 
 ## Overall Observations
 
-To be completed after execution.
+| Length | First name: JavaScript | First name: server | Matches published rule? |
+|---|---|---|---|
+| 2 | Rejected ("too short") | Not reached | No — rule has no minimum |
+| 3 | Allowed | Rejected ("too short") | No |
+| 4 | Allowed | Rejected ("too short") | No |
+| 5 | Allowed | Accepted | Yes |
+| 89 | Allowed | Accepted | Yes |
+| 90 | Rejected ("too long") | Not reached | Yes |
+
+| Length | Surname result | Matches published rule? |
+|---|---|---|
+| 0 (empty) | Accepted everywhere | Unclear — requirement does not say surname is required |
+| 10 | Rejected by JavaScript ("too short") | Yes |
+| 11 | Accepted by server | Yes |
+| 79 | Accepted by server | Yes |
+| 80 | Rejected by JavaScript ("too long") | Yes |
+
+What the tests showed:
+
+1. **Surname length rules work as published** at both boundaries (10/11 and 79/80).
+2. **First name has three different minimums**: the published rule has none, the page's JavaScript requires at least 3 characters, and the server requires at least 5. A user typing a real 3- or 4-character name (e.g. "Ali", "Alex") passes the on-page checks and is then rejected by the server. This is why the brief's baseline `Alex` failed.
+3. The upper first-name limit (under 90) matches the requirement on the client side.
+4. An empty surname is accepted. Whether that is correct depends on an unanswered requirement question.
+
+Uncertainty: I can only see the server's behaviour for inputs that the browser lets through. For 2 characters and 90 characters I do not know what the server would do, because the JavaScript stopped the form first.
+
+Change of direction: none. The results followed the plan; the 3/4-character results confirmed the baseline observation.
 
 ## Next Question
 
-To be completed after execution.
+- What is the intended minimum first-name length? This needs an answer from the requirement owner (Tutor) before calling it a defect.
+- Does the server also reject 90+ characters, or does it rely only on the JavaScript check? (Would need testing with JavaScript disabled, outside this practical's normal browser use.)
+- How are spaces, accents and emoji counted (e.g. "Zoë", "Mary Ann")?
+- Is surname meant to be required?
