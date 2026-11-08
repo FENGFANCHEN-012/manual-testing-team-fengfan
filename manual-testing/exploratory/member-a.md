@@ -2,30 +2,30 @@
 
 ## Testing Idea
 
-Investigate the **length rules for First name and Surname** on the Test Pages validation form, at both ends of each allowed range.
+I want to test the length rules for First name and Surname on the Test Pages form, at both ends of each range.
 
 ## Reason
 
-The brief's own baseline first name `Alex` was rejected by the server with "Firstname too short", even though the published rule only says the first name must be filled and be under 90 characters. That suggests the length checks are not what the requirements say. Surname has a clear published range (11–79), so it is a good place to apply boundary testing to a second field (brief section 18.2).
+When I checked the baseline, the server rejected the first name `Alex` with "Firstname too short". The published rules only say the first name must be filled and be under 90 characters, so this did not make sense to me. I want to find out what the real limit is. I also picked Surname because it has a clear range (11 to 79), so it is a good field to practise boundary testing on (this is also suggested in section 18.2 of the brief).
 
 ## Test Basis
 
-Published requirements (instructions page, read 8 Nov 2026):
+From the instructions page (8 Nov 2026):
 
 - firstname must be filled
 - firstname must be less than 90 chars
 - surname should be between 11 and 79 chars
 
-Assumptions and unclear points:
+My assumptions:
 
-- "Must be filled" gives no minimum length, so any non-empty name is treated as valid.
-- "Between 11 and 79" is read as inclusive (11 and 79 are valid).
-- The requirement does not say whether surname is mandatory; I assume empty is invalid because 0 is outside 11–79.
-- Length is counted in plain ASCII characters only (no spaces, accents or emoji in this round).
+- "Must be filled" has no minimum, so I treat any name that is not empty as valid.
+- I take "between 11 and 79" to include 11 and 79.
+- The rules do not say surname is required. I am assuming empty is invalid because 0 is not between 11 and 79.
+- I only use normal English letters for now. No spaces, accents or emoji.
 
 ## Approach
 
-Boundary value analysis on text length. First name: lower end (2, 3, 4, 5 characters, because the exact minimum is unknown) and upper end (89, 90). Surname: 2-point boundaries 10/11 and 79/80, plus empty. All other fields stay at the agreed baseline so that any rejection can be linked to the field under test. For every case I record which layer reacted: browser (HTML5), the page's JavaScript, or the server's Validation Report.
+I used boundary value analysis on the number of characters. For First name I tried 2, 3, 4 and 5 characters at the low end, because I do not know the real minimum, and 89 and 90 at the top. For Surname I tried 10 and 11, 79 and 80, and empty. Everything else stays at the baseline. For each test I wrote down which part reacted: the browser, the page's JavaScript or the server.
 
 ## Test Cases
 
@@ -33,44 +33,46 @@ Boundary value analysis on text length. First name: lower end (2, 3, 4, 5 charac
 
 | Item | Details |
 |---|---|
-| Test type | Negative? — see expected |
+| Test type | Negative? |
 | Tester | member-a |
-| Technique | Boundary value analysis on text length |
+| Website | Test Pages validation form |
+| Technique | Boundary value analysis on length |
 | Status | Fail |
 
 #### Purpose
 
-Check whether a 2-character first name is accepted.
+I want to see if a 2-letter first name is accepted.
 
 #### Preconditions
 
-Validation form open in a fresh page; all other fields use the agreed baseline (`Alexa` / `TestingStudent` / age `30` / `Singapore` / notes).
+The form is open in a fresh page and all the other fields use the baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
-| Firstname | `Al` (2 chars) |
+| First name | `Al` (2 chars) |
 
 #### Steps
 
-1. Open the validation form.
-2. Enter the agreed baseline.
-3. Replace the firstname with the test value (typed).
-4. Select Submit.
-5. Record whether the browser blocks it, whether the page's JavaScript shows an error, and what the server's Validation Report says.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the first name to the test value.
+4. Click Submit.
+5. Write down what blocked it, if anything (browser, JavaScript or server), and the message.
 
 #### Expected Result
 
-Per the published rule (must be filled, < 90 chars) a 2-character name should be **accepted**. Question: the brief's baseline `Alex` was rejected, so is there an unpublished minimum?
+By the published rule it should be accepted, since it is filled and under 90. But because `Alex` failed, I am not sure.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:24:02 pm. Selecting Submit did not send the form. The page's JavaScript showed the red message "Firstname provided is too short" under the field. The browser's HTML5 checks did not object. No request reached the server. This contradicts the published rule (only "must be filled"), so it is a Fail against the published requirement — or the requirement is missing a minimum length.
+Ran at 2:24 pm. The form did not submit. The page showed a red message under the field: "Firstname provided is too short". The browser itself did not complain. Nothing was sent to the server. This does not match the published rule, because the rule has no minimum. So it is a Fail against the requirement, or the requirement is missing a minimum.
 
 #### Evidence
 
 [View screenshot](../evidence/member-a/own-a-01.png)
+
 ---
 
 ### Test ID: OWN-A-02
@@ -79,42 +81,44 @@ Executed 8 Nov 2026, 2:24:02 pm. Selecting Submit did not send the form. The pag
 |---|---|
 | Test type | Positive |
 | Tester | member-a |
-| Technique | Boundary value analysis on text length |
+| Website | Test Pages validation form |
+| Technique | Boundary value analysis on length |
 | Status | Fail |
 
 #### Purpose
 
-Check whether a 3-character first name is accepted.
+I want to see if a 3-letter first name is accepted.
 
 #### Preconditions
 
-Validation form open in a fresh page; all other fields use the agreed baseline (`Alexa` / `TestingStudent` / age `30` / `Singapore` / notes).
+The form is open in a fresh page and all the other fields use the baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
-| Firstname | `Ali` (3 chars) |
+| First name | `Ali` (3 chars) |
 
 #### Steps
 
-1. Open the validation form.
-2. Enter the agreed baseline.
-3. Replace the firstname with the test value (typed).
-4. Select Submit.
-5. Record whether the browser blocks it, whether the page's JavaScript shows an error, and what the server's Validation Report says.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the first name to the test value.
+4. Click Submit.
+5. Write down what blocked it, if anything (browser, JavaScript or server), and the message.
 
 #### Expected Result
 
-Accepted (filled and < 90 chars).
+Accepted.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:24:08 pm. The browser and the page's JavaScript allowed the form through and it was submitted. The server's Validation Report said "Firstname Error — Firstname too short". So the JavaScript accepted 3 characters but the **server** rejected them: client and server disagree.
+Ran at 2:24 pm. The page let me submit. The server's Validation Report said "Firstname Error: Firstname too short". So the JavaScript was fine with 3 letters, but the server still rejected it. The two checks do not match.
 
 #### Evidence
 
 [View screenshot](../evidence/member-a/own-a-02.png)
+
 ---
 
 ### Test ID: OWN-A-03
@@ -123,42 +127,44 @@ Executed 8 Nov 2026, 2:24:08 pm. The browser and the page's JavaScript allowed t
 |---|---|
 | Test type | Positive |
 | Tester | member-a |
-| Technique | Boundary value analysis on text length |
+| Website | Test Pages validation form |
+| Technique | Boundary value analysis on length |
 | Status | Fail |
 
 #### Purpose
 
-Re-check the 4-character name that failed the baseline, to confirm the result is repeatable.
+I want to try `Alex` again to make sure the baseline failure happens every time.
 
 #### Preconditions
 
-Validation form open in a fresh page; all other fields use the agreed baseline (`Alexa` / `TestingStudent` / age `30` / `Singapore` / notes).
+The form is open in a fresh page and all the other fields use the baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
-| Firstname | `Alex` (4 chars) |
+| First name | `Alex` (4 chars) |
 
 #### Steps
 
-1. Open the validation form.
-2. Enter the agreed baseline.
-3. Replace the firstname with the test value (typed).
-4. Select Submit.
-5. Record whether the browser blocks it, whether the page's JavaScript shows an error, and what the server's Validation Report says.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the first name to the test value.
+4. Click Submit.
+5. Write down what blocked it, if anything (browser, JavaScript or server), and the message.
 
 #### Expected Result
 
-Accepted (filled and < 90 chars).
+Accepted.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:24:14 pm. The browser and the page's JavaScript allowed the form through and it was submitted. The server's Validation Report said "Firstname Error — Firstname too short". Same result as the baseline check, so the rejection of `Alex` is repeatable.
+Ran at 2:24 pm. The page let me submit. The server's Validation Report said "Firstname Error: Firstname too short". Same as my baseline check, so the problem can be repeated.
 
 #### Evidence
 
 [View screenshot](../evidence/member-a/own-a-03.png)
+
 ---
 
 ### Test ID: OWN-A-04
@@ -167,30 +173,31 @@ Executed 8 Nov 2026, 2:24:14 pm. The browser and the page's JavaScript allowed t
 |---|---|
 | Test type | Positive |
 | Tester | member-a |
-| Technique | Boundary value analysis on text length |
+| Website | Test Pages validation form |
+| Technique | Boundary value analysis on length |
 | Status | Pass |
 
 #### Purpose
 
-Check the 5-character name used as the adjusted baseline.
+I want to check the 5-letter name I used as my new baseline.
 
 #### Preconditions
 
-Validation form open in a fresh page; all other fields use the agreed baseline (`Alexa` / `TestingStudent` / age `30` / `Singapore` / notes).
+The form is open in a fresh page and all the other fields use the baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
-| Firstname | `Alexa` (5 chars) |
+| First name | `Alexa` (5 chars) |
 
 #### Steps
 
-1. Open the validation form.
-2. Enter the agreed baseline.
-3. Replace the firstname with the test value (typed).
-4. Select Submit.
-5. Record whether the browser blocks it, whether the page's JavaScript shows an error, and what the server's Validation Report says.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the first name to the test value.
+4. Click Submit.
+5. Write down what blocked it, if anything (browser, JavaScript or server), and the message.
 
 #### Expected Result
 
@@ -198,11 +205,12 @@ Accepted.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:24:20 pm. The browser and the page's JavaScript allowed the form through and it was submitted. The server's Validation Report said "Valid Input — Your Input passed validation".
+Ran at 2:24 pm. The page let me submit. The server's Validation Report said "Valid Input: Your Input passed validation".
 
 #### Evidence
 
 [View screenshot](../evidence/member-a/own-a-04.png)
+
 ---
 
 ### Test ID: OWN-A-05
@@ -211,42 +219,44 @@ Executed 8 Nov 2026, 2:24:20 pm. The browser and the page's JavaScript allowed t
 |---|---|
 | Test type | Positive |
 | Tester | member-a |
-| Technique | Boundary value analysis on text length |
+| Website | Test Pages validation form |
+| Technique | Boundary value analysis on length |
 | Status | Pass |
 
 #### Purpose
 
-Check the longest allowed first name (upper boundary, valid side).
+I want to check the longest first name that should be allowed.
 
 #### Preconditions
 
-Validation form open in a fresh page; all other fields use the agreed baseline (`Alexa` / `TestingStudent` / age `30` / `Singapore` / notes).
+The form is open in a fresh page and all the other fields use the baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
-| Firstname | `A` × 89 (89 chars) |
+| First name | `A` x 89 (89 chars) |
 
 #### Steps
 
-1. Open the validation form.
-2. Enter the agreed baseline.
-3. Replace the firstname with the test value (typed).
-4. Select Submit.
-5. Record whether the browser blocks it, whether the page's JavaScript shows an error, and what the server's Validation Report says.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the first name to the test value.
+4. Click Submit.
+5. Write down what blocked it, if anything (browser, JavaScript or server), and the message.
 
 #### Expected Result
 
-Accepted (89 < 90).
+Accepted, because 89 is less than 90.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:24:26 pm. The browser and the page's JavaScript allowed the form through and it was submitted. The server's Validation Report said "Valid Input — Your Input passed validation". The 89-character name was listed in "You submitted".
+Ran at 2:24 pm. The page let me submit. The server's Validation Report said "Valid Input: Your Input passed validation". The full 89-letter name showed under "You submitted".
 
 #### Evidence
 
 [View screenshot](../evidence/member-a/own-a-05.png)
+
 ---
 
 ### Test ID: OWN-A-06
@@ -255,42 +265,44 @@ Executed 8 Nov 2026, 2:24:26 pm. The browser and the page's JavaScript allowed t
 |---|---|
 | Test type | Negative |
 | Tester | member-a |
-| Technique | Boundary value analysis on text length |
+| Website | Test Pages validation form |
+| Technique | Boundary value analysis on length |
 | Status | Pass |
 
 #### Purpose
 
-Check the shortest too-long first name (upper boundary, invalid side).
+I want to check the shortest first name that is too long.
 
 #### Preconditions
 
-Validation form open in a fresh page; all other fields use the agreed baseline (`Alexa` / `TestingStudent` / age `30` / `Singapore` / notes).
+The form is open in a fresh page and all the other fields use the baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
-| Firstname | `A` × 90 (90 chars) |
+| First name | `A` x 90 (90 chars) |
 
 #### Steps
 
-1. Open the validation form.
-2. Enter the agreed baseline.
-3. Replace the firstname with the test value (typed).
-4. Select Submit.
-5. Record whether the browser blocks it, whether the page's JavaScript shows an error, and what the server's Validation Report says.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the first name to the test value.
+4. Click Submit.
+5. Write down what blocked it, if anything (browser, JavaScript or server), and the message.
 
 #### Expected Result
 
-Rejected (90 is not less than 90).
+Rejected, because 90 is not less than 90.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:24:32 pm. Selecting Submit did not send the form. The page's JavaScript showed the red message "Firstname provided is too long" under the field. The browser's HTML5 checks did not object. No request reached the server.
+Ran at 2:24 pm. The form did not submit. The page showed a red message under the field: "Firstname provided is too long". The browser itself did not complain. Nothing was sent to the server.
 
 #### Evidence
 
 [View screenshot](../evidence/member-a/own-a-06.png)
+
 ---
 
 ### Test ID: OWN-A-07
@@ -299,42 +311,44 @@ Executed 8 Nov 2026, 2:24:32 pm. Selecting Submit did not send the form. The pag
 |---|---|
 | Test type | Negative |
 | Tester | member-a |
-| Technique | Boundary value analysis on text length |
+| Website | Test Pages validation form |
+| Technique | Boundary value analysis on length |
 | Status | Pass |
 
 #### Purpose
 
-Check a surname one character below the minimum.
+I want to check a surname that is one character too short.
 
 #### Preconditions
 
-Validation form open in a fresh page; all other fields use the agreed baseline (`Alexa` / `TestingStudent` / age `30` / `Singapore` / notes).
+The form is open in a fresh page and all the other fields use the baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
-| Surname | `S` × 10 (10 chars) |
+| Surname | `S` x 10 (10 chars) |
 
 #### Steps
 
-1. Open the validation form.
-2. Enter the agreed baseline.
-3. Replace the surname with the test value (typed).
-4. Select Submit.
-5. Record whether the browser blocks it, whether the page's JavaScript shows an error, and what the server's Validation Report says.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the surname to the test value.
+4. Click Submit.
+5. Write down what blocked it, if anything (browser, JavaScript or server), and the message.
 
 #### Expected Result
 
-Rejected (surname must be 11–79 chars).
+Rejected, because it is under 11.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:24:38 pm. Selecting Submit did not send the form. The page's JavaScript showed the red message "Surname provided is too short" under the field. The browser's HTML5 checks did not object. No request reached the server.
+Ran at 2:24 pm. The form did not submit. The page showed a red message under the field: "Surname provided is too short". The browser itself did not complain. Nothing was sent to the server.
 
 #### Evidence
 
 [View screenshot](../evidence/member-a/own-a-07.png)
+
 ---
 
 ### Test ID: OWN-A-08
@@ -343,30 +357,31 @@ Executed 8 Nov 2026, 2:24:38 pm. Selecting Submit did not send the form. The pag
 |---|---|
 | Test type | Positive |
 | Tester | member-a |
-| Technique | Boundary value analysis on text length |
+| Website | Test Pages validation form |
+| Technique | Boundary value analysis on length |
 | Status | Pass |
 
 #### Purpose
 
-Check the minimum valid surname length.
+I want to check the shortest allowed surname.
 
 #### Preconditions
 
-Validation form open in a fresh page; all other fields use the agreed baseline (`Alexa` / `TestingStudent` / age `30` / `Singapore` / notes).
+The form is open in a fresh page and all the other fields use the baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
-| Surname | `S` × 11 (11 chars) |
+| Surname | `S` x 11 (11 chars) |
 
 #### Steps
 
-1. Open the validation form.
-2. Enter the agreed baseline.
-3. Replace the surname with the test value (typed).
-4. Select Submit.
-5. Record whether the browser blocks it, whether the page's JavaScript shows an error, and what the server's Validation Report says.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the surname to the test value.
+4. Click Submit.
+5. Write down what blocked it, if anything (browser, JavaScript or server), and the message.
 
 #### Expected Result
 
@@ -374,11 +389,12 @@ Accepted.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:24:44 pm. The browser and the page's JavaScript allowed the form through and it was submitted. The server's Validation Report said "Valid Input — Your Input passed validation".
+Ran at 2:24 pm. The page let me submit. The server's Validation Report said "Valid Input: Your Input passed validation".
 
 #### Evidence
 
 [View screenshot](../evidence/member-a/own-a-08.png)
+
 ---
 
 ### Test ID: OWN-A-09
@@ -387,30 +403,31 @@ Executed 8 Nov 2026, 2:24:44 pm. The browser and the page's JavaScript allowed t
 |---|---|
 | Test type | Positive |
 | Tester | member-a |
-| Technique | Boundary value analysis on text length |
+| Website | Test Pages validation form |
+| Technique | Boundary value analysis on length |
 | Status | Pass |
 
 #### Purpose
 
-Check the maximum valid surname length.
+I want to check the longest allowed surname.
 
 #### Preconditions
 
-Validation form open in a fresh page; all other fields use the agreed baseline (`Alexa` / `TestingStudent` / age `30` / `Singapore` / notes).
+The form is open in a fresh page and all the other fields use the baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
-| Surname | `S` × 79 (79 chars) |
+| Surname | `S` x 79 (79 chars) |
 
 #### Steps
 
-1. Open the validation form.
-2. Enter the agreed baseline.
-3. Replace the surname with the test value (typed).
-4. Select Submit.
-5. Record whether the browser blocks it, whether the page's JavaScript shows an error, and what the server's Validation Report says.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the surname to the test value.
+4. Click Submit.
+5. Write down what blocked it, if anything (browser, JavaScript or server), and the message.
 
 #### Expected Result
 
@@ -418,11 +435,12 @@ Accepted.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:24:50 pm. The browser and the page's JavaScript allowed the form through and it was submitted. The server's Validation Report said "Valid Input — Your Input passed validation".
+Ran at 2:24 pm. The page let me submit. The server's Validation Report said "Valid Input: Your Input passed validation".
 
 #### Evidence
 
 [View screenshot](../evidence/member-a/own-a-09.png)
+
 ---
 
 ### Test ID: OWN-A-10
@@ -431,42 +449,44 @@ Executed 8 Nov 2026, 2:24:50 pm. The browser and the page's JavaScript allowed t
 |---|---|
 | Test type | Negative |
 | Tester | member-a |
-| Technique | Boundary value analysis on text length |
+| Website | Test Pages validation form |
+| Technique | Boundary value analysis on length |
 | Status | Pass |
 
 #### Purpose
 
-Check a surname one character above the maximum.
+I want to check a surname that is one character too long.
 
 #### Preconditions
 
-Validation form open in a fresh page; all other fields use the agreed baseline (`Alexa` / `TestingStudent` / age `30` / `Singapore` / notes).
+The form is open in a fresh page and all the other fields use the baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
-| Surname | `S` × 80 (80 chars) |
+| Surname | `S` x 80 (80 chars) |
 
 #### Steps
 
-1. Open the validation form.
-2. Enter the agreed baseline.
-3. Replace the surname with the test value (typed).
-4. Select Submit.
-5. Record whether the browser blocks it, whether the page's JavaScript shows an error, and what the server's Validation Report says.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the surname to the test value.
+4. Click Submit.
+5. Write down what blocked it, if anything (browser, JavaScript or server), and the message.
 
 #### Expected Result
 
-Rejected.
+Rejected, because it is over 79.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:24:57 pm. Selecting Submit did not send the form. The page's JavaScript showed the red message "Surname provided is too long" under the field. The browser's HTML5 checks did not object. No request reached the server.
+Ran at 2:24 pm. The form did not submit. The page showed a red message under the field: "Surname provided is too long". The browser itself did not complain. Nothing was sent to the server.
 
 #### Evidence
 
 [View screenshot](../evidence/member-a/own-a-10.png)
+
 ---
 
 ### Test ID: OWN-A-11
@@ -475,77 +495,83 @@ Executed 8 Nov 2026, 2:24:57 pm. Selecting Submit did not send the form. The pag
 |---|---|
 | Test type | Negative |
 | Tester | member-a |
-| Technique | Boundary value analysis on text length |
+| Website | Test Pages validation form |
+| Technique | Boundary value analysis on length |
 | Status | Observation only |
 
 #### Purpose
 
-Check whether an empty surname is accepted.
+I want to see if an empty surname is accepted.
 
 #### Preconditions
 
-Validation form open in a fresh page; all other fields use the agreed baseline (`Alexa` / `TestingStudent` / age `30` / `Singapore` / notes).
+The form is open in a fresh page and all the other fields use the baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
-| Surname | Empty |
+| Surname | (left empty) |
 
 #### Steps
 
-1. Open the validation form.
-2. Enter the agreed baseline.
-3. Replace the surname with the test value (typed).
-4. Select Submit.
-5. Record whether the browser blocks it, whether the page's JavaScript shows an error, and what the server's Validation Report says.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the surname to the test value.
+4. Click Submit.
+5. Write down what blocked it, if anything (browser, JavaScript or server), and the message.
 
 #### Expected Result
 
-Rejected, because 0 characters is not between 11 and 79. Assumption: "between 11 and 79" also means the surname is required (the requirement does not say so explicitly).
+Rejected, because 0 is not between 11 and 79. This is based on my assumption that surname is required.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:25:02 pm. The browser and the page's JavaScript allowed the form through and it was submitted. The server's Validation Report said "Valid Input — Your Input passed validation". The empty surname was accepted by the browser, the JavaScript and the server. My expected result relied on an **assumption** that surname is required; the requirement does not say this, so I record it as an observation and a requirement question rather than a defect.
+Ran at 2:25 pm. The page let me submit. The server's Validation Report said "Valid Input: Your Input passed validation". The browser, the JavaScript and the server all accepted it. My expected result was only an assumption, because the rules never say surname is required. So I am recording this as an observation and a question, not a bug.
 
 #### Evidence
 
 [View screenshot](../evidence/member-a/own-a-11.png)
+
 ---
 
 ## Overall Observations
 
-| Length | First name: JavaScript | First name: server | Matches published rule? |
+First name:
+
+| Length | Page JavaScript | Server | Matches the published rule? |
 |---|---|---|---|
-| 2 | Rejected ("too short") | Not reached | No — rule has no minimum |
+| 2 | Rejected ("too short") | Never reached | No, the rule has no minimum |
 | 3 | Allowed | Rejected ("too short") | No |
 | 4 | Allowed | Rejected ("too short") | No |
 | 5 | Allowed | Accepted | Yes |
 | 89 | Allowed | Accepted | Yes |
-| 90 | Rejected ("too long") | Not reached | Yes |
+| 90 | Rejected ("too long") | Never reached | Yes |
 
-| Length | Surname result | Matches published rule? |
+Surname:
+
+| Length | Result | Matches the published rule? |
 |---|---|---|
-| 0 (empty) | Accepted everywhere | Unclear — requirement does not say surname is required |
+| empty | Accepted | Not clear, the rule does not say it is required |
 | 10 | Rejected by JavaScript ("too short") | Yes |
-| 11 | Accepted by server | Yes |
-| 79 | Accepted by server | Yes |
+| 11 | Accepted | Yes |
+| 79 | Accepted | Yes |
 | 80 | Rejected by JavaScript ("too long") | Yes |
 
-What the tests showed:
+What I found:
 
-1. **Surname length rules work as published** at both boundaries (10/11 and 79/80).
-2. **First name has three different minimums**: the published rule has none, the page's JavaScript requires at least 3 characters, and the server requires at least 5. A user typing a real 3- or 4-character name (e.g. "Ali", "Alex") passes the on-page checks and is then rejected by the server. This is why the brief's baseline `Alex` failed.
-3. The upper first-name limit (under 90) matches the requirement on the client side.
-4. An empty surname is accepted. Whether that is correct depends on an unanswered requirement question.
+1. The surname limits work the way the rules say, at both ends.
+2. The first name has three different minimums. The published rule has none, the page's JavaScript needs at least 3 letters, and the server needs at least 5. So someone called "Ali" or "Alex" would pass the page check and then get rejected by the server. This explains why the brief's baseline failed.
+3. The 90-character upper limit for first name matches the rule on the page side.
+4. An empty surname gets accepted. Whether that is right depends on a rule that is not written down.
 
-Uncertainty: I can only see the server's behaviour for inputs that the browser lets through. For 2 characters and 90 characters I do not know what the server would do, because the JavaScript stopped the form first.
+What I am not sure about: I can only see what the server does with values the page lets through. For 2 letters and 90 letters the JavaScript stopped the form first, so I don't know what the server would do with them.
 
-Change of direction: none. The results followed the plan; the 3/4-character results confirmed the baseline observation.
+I did not change direction during the tests. The 3 and 4 letter results just confirmed what I saw with the baseline.
 
 ## Next Question
 
-- What is the intended minimum first-name length? This needs an answer from the requirement owner (Tutor) before calling it a defect.
-- Does the server also reject 90+ characters, or does it rely only on the JavaScript check? (Would need testing with JavaScript disabled, outside this practical's normal browser use.)
-- How are spaces, accents and emoji counted (e.g. "Zoë", "Mary Ann")?
-- Is surname meant to be required?
+- What is the real minimum length for first name? I need to ask the Tutor before I can call it a bug.
+- Does the server also block names of 90+ characters, or does it only rely on the JavaScript? I would need to test with JavaScript turned off, which is outside this practical.
+- How does it count spaces, accents and emoji, like "Zoë" or "Mary Ann"?
+- Is surname supposed to be required?

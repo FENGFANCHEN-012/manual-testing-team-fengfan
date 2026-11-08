@@ -1,19 +1,21 @@
 # Manual Testing Results — Member A
 
-Solo submission: member-a (FENGFANCHEN-012) executes every guided test, including the ones the brief allocates to Members B–E.
+I did this practical on my own, so I ran all the guided tests myself, including the ones the brief gives to Members B to E.
 
 ## Environment
 
 | Item | Details |
 |---|---|
 | Tester identifier | member-a |
-| Date and time | 8 Nov 2026 (Singapore time); each test records its own run time |
-| Browser and version | Chromium 151.0.7922.34 (driven through Playwright, headless) |
+| Date and time | 8 Nov 2026, around 2:15 pm to 2:25 pm (SGT). I put the time for each test in its actual result. |
+| Browser and version | Chromium 151.0.7922.34 |
 | Operating system | Windows 11 Home (10.0.26200) |
 
-> Execution note: tests are executed in a real Chromium browser through Playwright. Inputs are typed key by key and the Submit / Login buttons are clicked, as a user would. Screenshots are saved under [evidence/member-a](../evidence/member-a/).
+Note: I used a small Playwright script to open Chromium and type the inputs into the pages, then click Login or Submit. Every test was really run against the live websites, and I took a screenshot after each one. The screenshots are in [evidence/member-a](../evidence/member-a/).
 
 ## Login Tests
+
+For every login test I started from the login page, logged out, with both fields empty.
 
 ### Test ID: LOGIN-P01
 
@@ -26,11 +28,11 @@ Solo submission: member-a (FENGFANCHEN-012) executes every guided test, includin
 
 #### Purpose
 
-Check that valid credentials give access to the product inventory.
+I want to check that a valid username and password let me into the product page.
 
 #### Preconditions
 
-SauceDemo login page is open, the user is logged out and both fields are empty.
+I am on the SauceDemo login page, logged out, and both fields are empty.
 
 #### Test Data
 
@@ -41,24 +43,24 @@ SauceDemo login page is open, the user is logged out and both fields are empty.
 
 #### Steps
 
-1. Follow the shared starting procedure (logged out, both fields empty).
-2. Enter the username.
-3. Enter the password.
-4. Select `Login`.
-5. Observe the page reached.
-6. Check that products are visible.
+1. Open the login page and make sure I am logged out.
+2. Type the username.
+3. Type the password.
+4. Click `Login`.
+5. Check which page I land on and whether products show.
 
 #### Expected Result
 
-The inventory page appears and products are visible.
+I should get to the inventory page and see the products.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:17 pm. After selecting Login, the browser moved to `/inventory.html`. The page title showed "Products" and 6 product items were listed. No error message appeared.
+Ran at 2:17 pm. After I clicked Login, it went to `/inventory.html`. The title said "Products" and I could see 6 products. No error came up.
 
 #### Evidence
 
 [View screenshot](../evidence/member-a/login-p01.png)
+
 ---
 
 ### Test ID: LOGIN-N01
@@ -72,11 +74,11 @@ Executed 8 Nov 2026, 2:17 pm. After selecting Login, the browser moved to `/inve
 
 #### Purpose
 
-Check that an incorrect password is rejected while the username stays valid.
+I want to check that a wrong password does not let me in. I keep the username correct so only the password is wrong.
 
 #### Preconditions
 
-SauceDemo login page is open, the user is logged out and both fields are empty.
+I am on the SauceDemo login page, logged out, and both fields are empty.
 
 #### Test Data
 
@@ -87,23 +89,24 @@ SauceDemo login page is open, the user is logged out and both fields are empty.
 
 #### Steps
 
-1. Follow the shared starting procedure.
-2. Enter the valid username.
-3. Enter the incorrect password.
-4. Select `Login`.
-5. Observe the page and feedback.
+1. Open the login page and make sure I am logged out.
+2. Type the correct username.
+3. Type the wrong password.
+4. Click `Login`.
+5. Look at the page and any error.
 
 #### Expected Result
 
-Login is rejected, error feedback appears, and the inventory is not reached.
+Login should be rejected, an error should show, and I should not see the inventory.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:18 pm. The page stayed on the login page (`/`). An error banner appeared: "Epic sadface: Username and password do not match any user in this service". No products were shown, so the inventory was not reached. The rejection is the expected behaviour, so this negative test passes.
+Ran at 2:18 pm. I stayed on the login page and a red error showed: "Epic sadface: Username and password do not match any user in this service". No products were shown. This is what I expected, so the negative test passes.
 
 #### Evidence
 
 [View screenshot](../evidence/member-a/login-n01.png)
+
 ---
 
 ### Test ID: LOGIN-N02
@@ -117,38 +120,39 @@ Executed 8 Nov 2026, 2:18 pm. The page stayed on the login page (`/`). An error 
 
 #### Purpose
 
-Check that a missing password is rejected.
+I want to check that I cannot log in without a password.
 
 #### Preconditions
 
-SauceDemo login page is open, the user is logged out and both fields are empty.
+I am on the SauceDemo login page, logged out, and both fields are empty.
 
 #### Test Data
 
 | Field | Value |
 |---|---|
 | Username | `standard_user` |
-| Password | Empty |
+| Password | (left empty) |
 
 #### Steps
 
-1. Follow the shared starting procedure.
-2. Enter the username.
+1. Open the login page and make sure I am logged out.
+2. Type the username.
 3. Leave the password empty.
-4. Select `Login`.
-5. Observe the feedback.
+4. Click `Login`.
+5. Look at the error.
 
 #### Expected Result
 
-The attempt is rejected with validation feedback. The inventory is not reached.
+Login should be rejected with a message, and I should not see the inventory.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:18 pm. The page stayed on the login page. An error banner appeared: "Epic sadface: Password is required". The inventory was not reached.
+Ran at 2:18 pm. I stayed on the login page and the error said "Epic sadface: Password is required". The inventory did not open.
 
 #### Evidence
 
 [View screenshot](../evidence/member-a/login-n02.png)
+
 ---
 
 ### Test ID: LOGIN-N03
@@ -162,38 +166,39 @@ Executed 8 Nov 2026, 2:18 pm. The page stayed on the login page. An error banner
 
 #### Purpose
 
-Check that a missing username is rejected.
+I want to check that I cannot log in without a username.
 
 #### Preconditions
 
-SauceDemo login page is open, the user is logged out and both fields are empty.
+I am on the SauceDemo login page, logged out, and both fields are empty.
 
 #### Test Data
 
 | Field | Value |
 |---|---|
-| Username | Empty |
+| Username | (left empty) |
 | Password | `secret_sauce` |
 
 #### Steps
 
-1. Follow the shared starting procedure.
+1. Open the login page and make sure I am logged out.
 2. Leave the username empty.
-3. Enter the password.
-4. Select `Login`.
-5. Observe the feedback.
+3. Type the password.
+4. Click `Login`.
+5. Look at the error.
 
 #### Expected Result
 
-The attempt is rejected with validation feedback. The inventory is not reached.
+Login should be rejected with a message, and I should not see the inventory.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:19 pm. The page stayed on the login page. An error banner appeared: "Epic sadface: Username is required". The inventory was not reached.
+Ran at 2:19 pm. I stayed on the login page and the error said "Epic sadface: Username is required". The inventory did not open.
 
 #### Evidence
 
 [View screenshot](../evidence/member-a/login-n03.png)
+
 ---
 
 ### Test ID: LOGIN-R01
@@ -207,73 +212,76 @@ Executed 8 Nov 2026, 2:19 pm. The page stayed on the login page. An error banner
 
 #### Purpose
 
-Check that a user can log in after correcting an invalid attempt, without resetting the page.
+I want to check that after a failed login, I can fix the password and log in without reloading the page.
 
 #### Preconditions
 
-SauceDemo login page is open, the user is logged out and both fields are empty.
+I am on the SauceDemo login page, logged out, and both fields are empty.
 
 #### Test Data
 
 | Field | Value |
 |---|---|
-| Username | `standard_user` (kept for both attempts) |
-| Password | Attempt 1: `wrong_password`; attempt 2: `secret_sauce` |
+| Username | `standard_user` (same for both tries) |
+| Password | 1st try `wrong_password`, 2nd try `secret_sauce` |
 
 #### Steps
 
-1. Follow the shared starting procedure.
-2. Enter `standard_user` and `wrong_password`.
-3. Select `Login`.
-4. Confirm rejection.
-5. Replace the password with `secret_sauce`.
-6. Keep the username unchanged.
-7. Select `Login` again.
-8. Check whether the inventory appears.
+1. Open the login page and make sure I am logged out.
+2. Type `standard_user` and `wrong_password`.
+3. Click `Login`.
+4. Check that it is rejected.
+5. Clear the password and type `secret_sauce`.
+6. Leave the username as it is.
+7. Click `Login` again.
+8. Check if the inventory shows.
 
 #### Expected Result
 
-The invalid attempt is rejected. After correcting the password, login succeeds.
+The first try should be rejected. After fixing the password, the second try should log me in.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:19 pm.
+Ran at 2:19 pm.
 
-- Stage 1 (wrong password): the page stayed on the login page and showed "Epic sadface: Username and password do not match any user in this service". No products shown.
-- Stage 2 (password replaced with `secret_sauce`, username left as typed, page not reloaded): the browser moved to `/inventory.html`, the title showed "Products" and 6 products were listed.
+- 1st try: I stayed on the login page with the error "Epic sadface: Username and password do not match any user in this service".
+- 2nd try: after I changed only the password, it went to `/inventory.html`, the title said "Products" and 6 products showed.
 
-The invalid attempt did not block the later valid login.
+So the failed try did not stop me from logging in afterwards.
 
 #### Evidence
 
-- [Stage 1 — rejected](../evidence/member-a/login-r01-stage1.png)
-- [Stage 2 — inventory reached](../evidence/member-a/login-r01.png)
+- [1st try, rejected](../evidence/member-a/login-r01-stage1.png)
+- [2nd try, logged in](../evidence/member-a/login-r01.png)
+
 ---
 
 ## Equivalence Partitioning
 
-### Requirements Checked
+### Requirements I checked
 
-Read on 8 Nov 2026 from the [instructions page](https://testpages.eviltester.com/apps/client-server-form-validation/client-server-form-validation-instructions/): firstname must be filled and be less than 90 chars; surname between 11 and 79 chars; age between 18 and 80; notes max 2000; country from list. Classroom model used: **age is a whole number, 18 ≤ age ≤ 80**.
+I read the [instructions page](https://testpages.eviltester.com/apps/client-server-form-validation/client-server-form-validation-instructions/) on 8 Nov 2026. It says the first name must be filled and be less than 90 chars, the surname should be 11 to 79 chars, age between 18 and 80, notes max 2000, and the country must be from the list. For age I used the classroom model: a whole number from 18 to 80, both included.
 
-### Baseline Check
+### Baseline check
 
-| Attempt | First name | Result |
+Before testing age I submitted the baseline from the brief to make sure it passes.
+
+| Try | First name | What happened |
 |---|---|---|
-| Brief's baseline | `Alex` | Submitted, but the server returned **"Firstname Error — Firstname too short"**. [Screenshot](../evidence/member-a/base-01-alex.png) |
-| Adjusted baseline | `Alexa` | Submitted, server returned **"Valid Input — Your Input passed validation"**. [Screenshot](../evidence/member-a/base-02-alexa.png) |
+| Brief's baseline | `Alex` | The server said "Firstname Error: Firstname too short". [Screenshot](../evidence/member-a/base-01-alex.png) |
+| My changed baseline | `Alexa` | The server said "Valid Input: Your Input passed validation". [Screenshot](../evidence/member-a/base-02-alexa.png) |
 
-The brief's baseline failed although `Alex` (4 characters) meets the published rule "firstname must be filled". So the baseline was changed to `Alexa` (5 characters), with every other field unchanged, so that age tests are not affected by a first-name error. Requirement question raised in [team-plan.md](../team-plan.md#agreed-baseline-data). The first-name behaviour is investigated further in my [self-designed tests](../exploratory/member-a.md).
+This surprised me. `Alex` is filled in and is shorter than 90 characters, so by the published rules it should be fine. Since the baseline has to pass, I changed the first name to `Alexa` and kept everything else the same. That way, if an age gets rejected, I know it is because of the age and not the first name. I wrote this down as a question in the [team plan](../team-plan.md#agreed-baseline-data) and looked into it more in my [own tests](../exploratory/member-a.md).
 
 ### Partitions
 
-| Partition | Whole-number age group | Representative | Test type | Expected |
+| Partition | Ages | Value I picked | Type | Expected |
 |---|---|---:|---|---|
-| EP-01 | Below 18 | 10 | Negative | Reject |
-| EP-02 | 18–80 inclusive | 30 | Positive | Accept |
-| EP-03 | Above 80 | 90 | Negative | Reject |
+| EP-01 | below 18 | 10 | Negative | Reject |
+| EP-02 | 18 to 80 | 30 | Positive | Accept |
+| EP-03 | above 80 | 90 | Negative | Reject |
 
-"Reject" means successful submission is prevented, or the server returns a validation error for age.
+"Reject" here means the form is stopped from submitting, or the server returns an error for age.
 
 ### Test ID: AGE-EP-30-A
 
@@ -282,39 +290,39 @@ The brief's baseline failed although `Alex` (4 characters) meets the published r
 | Test type | Positive |
 | Tester | member-a |
 | Website | Test Pages validation form |
-| Technique | Equivalence partitioning (EP-02: 18–80) |
+| Technique | Equivalence partitioning (EP-02) |
 | Status | Pass |
 
 #### Purpose
 
-Check that a representative age inside the valid partition is accepted.
+I want to check that an age in the middle of the valid range is accepted.
 
 #### Preconditions
 
-The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+The validation form is open in a fresh page. All the other fields use our baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
 | Age | `30` |
-| Other fields | Agreed valid baseline |
+| Other fields | Baseline |
 
 #### Steps
 
-1. Open (restore) the validation form.
-2. Enter the agreed baseline.
-3. Replace age with `30` (typed).
-4. Select Submit.
-5. Observe the response.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the age to `30`.
+4. Click Submit.
+5. See what happens.
 
 #### Expected Result
 
-Age 30 is accepted: the form submits and the server reports valid input with Age 30.
+Age 30 should be accepted. The form should submit and the server should say the input is valid.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:20:33 pm. The form submitted to the server (`/submit`). The server's Validation Report said: "Valid Input | Your Input passed validation". The "You submitted" section listed Age `30`. The input passed server validation.
+Ran at 2:20 pm. The form went through to the server. The Validation Report said "Valid Input: Your Input passed validation" and under "You submitted" the age was 30.
 
 #### Evidence
 
@@ -329,39 +337,39 @@ Executed 8 Nov 2026, 2:20:33 pm. The form submitted to the server (`/submit`). T
 | Test type | Negative |
 | Tester | member-a |
 | Website | Test Pages validation form |
-| Technique | Equivalence partitioning (EP-01: below 18) |
+| Technique | Equivalence partitioning (EP-01) |
 | Status | Pass |
 
 #### Purpose
 
-Check that a representative age below the valid partition is rejected.
+I want to check that an age below the valid range is rejected.
 
 #### Preconditions
 
-The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+The validation form is open in a fresh page. All the other fields use our baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
 | Age | `10` |
-| Other fields | Agreed valid baseline |
+| Other fields | Baseline |
 
 #### Steps
 
-1. Open (restore) the validation form.
-2. Enter the agreed baseline.
-3. Replace age with `10` (typed).
-4. Select Submit.
-5. Observe the response.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the age to `10`.
+4. Click Submit.
+5. See what happens.
 
 #### Expected Result
 
-Age 10 is rejected because it is below the minimum of 18 (submission prevented or a validation error returned).
+Age 10 should be rejected because it is below 18. Either the form is blocked or the server gives an error.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:20:39 pm. Selecting Submit did **not** send the form: the page stayed on the form URL and no Validation Report appeared. The browser's built-in (HTML5) validation blocked it with the message `age`: "Value must be greater than or equal to 18." The age field contained `10` at submit time. This rejection came from the browser, not from the server.
+Ran at 2:20 pm. The form did not submit. The browser popped up "Value must be greater than or equal to 18." next to the age box and I stayed on the form page. This was the browser's own check (the HTML `min`/`max` on the field), so the server never got this value.
 
 #### Evidence
 
@@ -376,39 +384,39 @@ Executed 8 Nov 2026, 2:20:39 pm. Selecting Submit did **not** send the form: the
 | Test type | Negative |
 | Tester | member-a |
 | Website | Test Pages validation form |
-| Technique | Equivalence partitioning (EP-03: above 80) |
+| Technique | Equivalence partitioning (EP-03) |
 | Status | Pass |
 
 #### Purpose
 
-Check that a representative age above the valid partition is rejected.
+I want to check that an age above the valid range is rejected.
 
 #### Preconditions
 
-The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+The validation form is open in a fresh page. All the other fields use our baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
 | Age | `90` |
-| Other fields | Agreed valid baseline |
+| Other fields | Baseline |
 
 #### Steps
 
-1. Open (restore) the validation form.
-2. Enter the agreed baseline.
-3. Replace age with `90` (typed).
-4. Select Submit.
-5. Observe the response.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the age to `90`.
+4. Click Submit.
+5. See what happens.
 
 #### Expected Result
 
-Age 90 is rejected because it is above the maximum of 80 (submission prevented or a validation error returned).
+Age 90 should be rejected because it is above 80. Either the form is blocked or the server gives an error.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:20:45 pm. Selecting Submit did **not** send the form: the page stayed on the form URL and no Validation Report appeared. The browser's built-in (HTML5) validation blocked it with the message `age`: "Value must be less than or equal to 80." The age field contained `90` at submit time. This rejection came from the browser, not from the server.
+Ran at 2:20 pm. The form did not submit. The browser popped up "Value must be less than or equal to 80." next to the age box and I stayed on the form page. This was the browser's own check (the HTML `min`/`max` on the field), so the server never got this value.
 
 #### Evidence
 
@@ -420,44 +428,44 @@ Executed 8 Nov 2026, 2:20:45 pm. Selecting Submit did **not** send the form: the
 
 | Item | Details |
 |---|---|
-| Test type | Negative (input-format observation) |
+| Test type | Negative (observation) |
 | Tester | member-a |
 | Website | Test Pages validation form |
-| Technique | Input-format observation |
+| Technique | Input format observation |
 | Status | Observation only |
 
 #### Purpose
 
-Observe how the form handles a blank age.
+I want to see what the form does when age is left empty.
 
 #### Preconditions
 
-The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+The validation form is open in a fresh page. All the other fields use our baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
-| Age | Empty |
-| Other fields | Agreed valid baseline |
+| Age | (left empty) |
+| Other fields | Baseline |
 
 #### Steps
 
-1. Open (restore) the validation form.
-2. Enter the agreed baseline.
-3. Clear the age field and leave it empty.
-4. Select Submit.
-5. Observe the response.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the age to empty.
+4. Click Submit.
+5. See what happens.
 
 #### Expected Result
 
-Requirement question: the published requirements say "age between 18 and 80" but do not say whether age is mandatory. Observe whether blank age is prevented, cleared or rejected, and what feedback appears.
+I am not sure. The rules say "age between 18 and 80" but do not say age is required. I just want to see what happens.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:20:51 pm. Selecting Submit did **not** send the form: the page stayed on the form URL and no Validation Report appeared. The browser's built-in (HTML5) validation blocked it with the message `age`: "Please fill out this field." The age field contained `(empty)` at submit time. This rejection came from the browser, not from the server.
+Ran at 2:20 pm. The form did not submit. The browser showed "Please fill out this field." on the age box.
 
-Observation: blank age is treated as required. The `required` attribute on the age field (HTML5) is what blocks it. The published requirement list does not state that age is required, so this is recorded as an observation, not Pass/Fail.
+So in practice age is required, because the field has the HTML `required` attribute. The published rules do not say this, so I am recording it as an observation and not giving it a Pass or Fail.
 
 #### Evidence
 
@@ -469,44 +477,44 @@ Observation: blank age is treated as required. The `required` attribute on the a
 
 | Item | Details |
 |---|---|
-| Test type | Negative (input-format observation) |
+| Test type | Negative (observation) |
 | Tester | member-a |
 | Website | Test Pages validation form |
-| Technique | Input-format observation |
+| Technique | Input format observation |
 | Status | Observation only |
 
 #### Purpose
 
-Observe how the form handles non-numeric age input.
+I want to see what happens if I type letters into the age box.
 
 #### Preconditions
 
-The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+The validation form is open in a fresh page. All the other fields use our baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
-| Age | `abc` (typed key by key) |
-| Other fields | Agreed valid baseline |
+| Age | `abc` |
+| Other fields | Baseline |
 
 #### Steps
 
-1. Open (restore) the validation form.
-2. Enter the agreed baseline.
-3. Clear the age field and type `abc`.
-4. Select Submit.
-5. Observe the response.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the age to `abc`.
+4. Click Submit.
+5. See what happens.
 
 #### Expected Result
 
-Requirement question: the requirements do not describe non-numeric input. Observe whether `abc` can be entered and how it is handled.
+The rules do not cover letters, so I do not have a clear expected result. I want to see if I can even type them.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:20:57 pm. Selecting Submit did **not** send the form: the page stayed on the form URL and no Validation Report appeared. The browser's built-in (HTML5) validation blocked it with the message `age`: "Please fill out this field." The age field contained `(empty)` at submit time. This rejection came from the browser, not from the server.
+Ran at 2:20 pm. I could not type the letters. The age box is a number field, so it just stayed empty. When I clicked Submit, the browser said "Please fill out this field."
 
-Observation: the letters could not be entered. The age field is an HTML `type="number"` input, so the browser discarded the typed letters and the field stayed empty. The form was then blocked as an empty required field. The input was **prevented by the browser**; the server never saw `abc`.
+So `abc` was blocked by the browser while typing. The server never saw it.
 
 #### Evidence
 
@@ -514,15 +522,13 @@ Observation: the letters could not be entered. The age field is an HTML `type="n
 
 ---
 
+### Discussion
 
-### Discussion Checkpoint
-
-Testing only 25, 40 and 60 would choose three values from the **same** valid partition (18–80). Each would be expected to behave the same way, so they add almost nothing, and the two invalid partitions (below 18 and above 80) would never be exercised. A form that accepted every age would pass all three tests.
-
+If I only tested 25, 40 and 60, all three are in the same valid group (18 to 80). They would all behave the same, and I would never test what happens below 18 or above 80. A form that accepts every age would still pass those three tests.
 
 ## 2-Point Boundary Tests
 
-Transitions: `17 → 18` (invalid → valid) and `80 → 81` (valid → invalid). Values tested: 17, 18, 80, 81. In this solo submission member-a executes all four (the brief splits them across A–D).
+The two edges are 17 to 18 (invalid to valid) and 80 to 81 (valid to invalid), so I tested 17, 18, 80 and 81.
 
 ### Test ID: AGE-2P-17-A
 
@@ -536,34 +542,34 @@ Transitions: `17 → 18` (invalid → valid) and `80 → 81` (valid → invalid)
 
 #### Purpose
 
-Check that age 17, immediately below the minimum of 18, is rejected.
+I want to check age 17, which is just below the minimum.
 
 #### Preconditions
 
-The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+The validation form is open in a fresh page. All the other fields use our baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
 | Age | `17` |
-| Other fields | Agreed valid baseline |
+| Other fields | Baseline |
 
 #### Steps
 
-1. Open (restore) the validation form.
-2. Enter the agreed baseline.
-3. Replace age with `17` (typed).
-4. Select Submit.
-5. Observe the response.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the age to `17`.
+4. Click Submit.
+5. See what happens.
 
 #### Expected Result
 
-Age 17 is rejected because it is below 18 (submission prevented or a validation error returned).
+Age 17 should be rejected because it is below 18. Either the form is blocked or the server gives an error.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:22:19 pm. Selecting Submit did **not** send the form: the page stayed on the form URL and no Validation Report appeared. The browser's built-in (HTML5) validation blocked it with the message `age`: "Value must be greater than or equal to 18." The age field contained `17` at submit time. This rejection came from the browser, not from the server.
+Ran at 2:22 pm. The form did not submit. The browser popped up "Value must be greater than or equal to 18." next to the age box and I stayed on the form page. This was the browser's own check (the HTML `min`/`max` on the field), so the server never got this value.
 
 #### Evidence
 
@@ -583,34 +589,34 @@ Executed 8 Nov 2026, 2:22:19 pm. Selecting Submit did **not** send the form: the
 
 #### Purpose
 
-Check that age 18, the minimum valid age, is accepted.
+I want to check age 18, which is the lowest valid age.
 
 #### Preconditions
 
-The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+The validation form is open in a fresh page. All the other fields use our baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
 | Age | `18` |
-| Other fields | Agreed valid baseline |
+| Other fields | Baseline |
 
 #### Steps
 
-1. Open (restore) the validation form.
-2. Enter the agreed baseline.
-3. Replace age with `18` (typed).
-4. Select Submit.
-5. Observe the response.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the age to `18`.
+4. Click Submit.
+5. See what happens.
 
 #### Expected Result
 
-Age 18 is accepted: the form submits and the server reports valid input with Age 18.
+Age 18 should be accepted. The form should submit and the server should say the input is valid.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:22:25 pm. The form submitted to the server (`/submit`). The server's Validation Report said: "Valid Input | Your Input passed validation". The "You submitted" section listed Age `18`. The input passed server validation.
+Ran at 2:22 pm. The form went through to the server. The Validation Report said "Valid Input: Your Input passed validation" and under "You submitted" the age was 18.
 
 #### Evidence
 
@@ -630,34 +636,34 @@ Executed 8 Nov 2026, 2:22:25 pm. The form submitted to the server (`/submit`). T
 
 #### Purpose
 
-Check that age 80, the maximum valid age, is accepted.
+I want to check age 80, which is the highest valid age.
 
 #### Preconditions
 
-The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+The validation form is open in a fresh page. All the other fields use our baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
 | Age | `80` |
-| Other fields | Agreed valid baseline |
+| Other fields | Baseline |
 
 #### Steps
 
-1. Open (restore) the validation form.
-2. Enter the agreed baseline.
-3. Replace age with `80` (typed).
-4. Select Submit.
-5. Observe the response.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the age to `80`.
+4. Click Submit.
+5. See what happens.
 
 #### Expected Result
 
-Age 80 is accepted: the form submits and the server reports valid input with Age 80.
+Age 80 should be accepted. The form should submit and the server should say the input is valid.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:22:31 pm. The form submitted to the server (`/submit`). The server's Validation Report said: "Valid Input | Your Input passed validation". The "You submitted" section listed Age `80`. The input passed server validation.
+Ran at 2:22 pm. The form went through to the server. The Validation Report said "Valid Input: Your Input passed validation" and under "You submitted" the age was 80.
 
 #### Evidence
 
@@ -677,34 +683,34 @@ Executed 8 Nov 2026, 2:22:31 pm. The form submitted to the server (`/submit`). T
 
 #### Purpose
 
-Check that age 81, immediately above the maximum of 80, is rejected.
+I want to check age 81, which is just above the maximum.
 
 #### Preconditions
 
-The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+The validation form is open in a fresh page. All the other fields use our baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
 | Age | `81` |
-| Other fields | Agreed valid baseline |
+| Other fields | Baseline |
 
 #### Steps
 
-1. Open (restore) the validation form.
-2. Enter the agreed baseline.
-3. Replace age with `81` (typed).
-4. Select Submit.
-5. Observe the response.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the age to `81`.
+4. Click Submit.
+5. See what happens.
 
 #### Expected Result
 
-Age 81 is rejected because it is above 80 (submission prevented or a validation error returned).
+Age 81 should be rejected because it is above 80. Either the form is blocked or the server gives an error.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:22:37 pm. Selecting Submit did **not** send the form: the page stayed on the form URL and no Validation Report appeared. The browser's built-in (HTML5) validation blocked it with the message `age`: "Value must be less than or equal to 80." The age field contained `81` at submit time. This rejection came from the browser, not from the server.
+Ran at 2:22 pm. The form did not submit. The browser popped up "Value must be less than or equal to 80." next to the age box and I stayed on the form page. This was the browser's own check (the HTML `min`/`max` on the field), so the server never got this value.
 
 #### Evidence
 
@@ -712,27 +718,26 @@ Executed 8 Nov 2026, 2:22:37 pm. Selecting Submit did **not** send the form: the
 
 ---
 
+### What I learned
 
-### Interpretation
+- 18 is a positive test because it is a valid age. It is the value that would catch a bug like `age > 18` instead of `age >= 18`. Testing 30 would never find that.
+- 17 is a negative test because it is invalid. The test passes because the form correctly rejected it.
+- Testing only 18 and 80 is not enough. They only show that the valid edges work. Without 17 and 81 I would not know if the invalid side is really blocked.
 
-- **Why is 18 a positive boundary test?** 18 is a valid input (the lowest allowed age), so the expected result is acceptance. It would catch a mistake such as `age > 18` instead of `age >= 18`; testing 30 would not.
-- **Why is 17 a negative boundary test?** 17 is invalid input. The test passes when the form rejects it, which it did.
-- **Why is testing only 18 and 80 incomplete?** They only show that the valid edges are accepted. Without 17 and 81 we would not know whether the invalid side of each edge is rejected (for example a check written as `age >= 17` would still accept 18).
-
-Observation: on this form the rejections of 17 and 81 came from the browser's HTML5 `min="18" max="80"` attributes, before the request reached the server. The page's own JavaScript check (visible in the page source) only rejects ages below 16 or above 100, so the three layers of validation do not agree. Server-side behaviour for 17 and 81 was **not** tested, because that needs requests outside normal browser use.
+One thing I noticed: 17 and 81 were blocked by the browser (the HTML `min="18"` and `max="80"`), not by the server. When I looked at the page source, the JavaScript check only rejects ages under 16 or over 100. So the browser, the JavaScript and the published rule do not all agree. I did not test what the server does with 17 or 81, because that would mean going around the browser, which is outside normal use.
 
 ## 3-Point Boundary Tests
 
-Convention: ISTQB CTFL v4.0 3-value BVA — for each boundary value (17, 18, 80, 81) test one below, the value, and one above. After removing duplicates: **16, 17, 18, 19, 79, 80, 81, 82**.
+I used the ISTQB 3-value way: for each boundary value (17, 18, 80, 81), test the value before it, the value itself and the value after it. Without repeats that gives 16, 17, 18, 19, 79, 80, 81, 82.
 
-New executions: 16, 19, 79, 82 (below). Reused executions: 17, 18, 80, 81.
+I already tested 17, 18, 80 and 81, so this time I only needed to run 16, 19, 79 and 82.
 
-### Ages 17, 18, 80 and 81 — Reused Executions
+### Ages 17, 18, 80 and 81 (reused)
 
 - Original tests: `AGE-2P-17-A`, `AGE-2P-18-A`, `AGE-2P-80-A`, `AGE-2P-81-A`
-- Tester: `member-a`
-- Record: [2-Point Boundary Tests](#2-point-boundary-tests) in this file
-- Reason for reuse: same browser, same baseline (`Alexa` / `TestingStudent` / `Singapore`), same procedure, executed minutes earlier on 8 Nov 2026.
+- Tester: `member-a` (me)
+- Record: [2-Point Boundary Tests](#2-point-boundary-tests) in this same file
+- Why I reused them: same browser, same baseline, same steps, done a few minutes earlier on the same day.
 
 ### Test ID: AGE-3P-16-A
 
@@ -741,39 +746,39 @@ New executions: 16, 19, 79, 82 (below). Reused executions: 17, 18, 80, 81.
 | Test type | Negative |
 | Tester | member-a |
 | Website | Test Pages validation form |
-| Technique | 3-point boundary testing (ISTQB CTFL v4.0, 8-value convention) |
+| Technique | 3-point boundary testing |
 | Status | Pass |
 
 #### Purpose
 
-Check that age 16, two below the minimum (neighbour of boundary value 17), is rejected.
+I want to check age 16, which is next to boundary value 17.
 
 #### Preconditions
 
-The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+The validation form is open in a fresh page. All the other fields use our baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
 | Age | `16` |
-| Other fields | Agreed valid baseline |
+| Other fields | Baseline |
 
 #### Steps
 
-1. Open (restore) the validation form.
-2. Enter the agreed baseline.
-3. Replace age with `16` (typed).
-4. Select Submit.
-5. Observe the response.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the age to `16`.
+4. Click Submit.
+5. See what happens.
 
 #### Expected Result
 
-Age 16 is rejected because it is below 18 (submission prevented or a validation error returned).
+Age 16 should be rejected because it is below 18. Either the form is blocked or the server gives an error.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:22:43 pm. Selecting Submit did **not** send the form: the page stayed on the form URL and no Validation Report appeared. The browser's built-in (HTML5) validation blocked it with the message `age`: "Value must be greater than or equal to 18." The age field contained `16` at submit time. This rejection came from the browser, not from the server.
+Ran at 2:22 pm. The form did not submit. The browser popped up "Value must be greater than or equal to 18." next to the age box and I stayed on the form page. This was the browser's own check (the HTML `min`/`max` on the field), so the server never got this value.
 
 #### Evidence
 
@@ -788,39 +793,39 @@ Executed 8 Nov 2026, 2:22:43 pm. Selecting Submit did **not** send the form: the
 | Test type | Positive |
 | Tester | member-a |
 | Website | Test Pages validation form |
-| Technique | 3-point boundary testing (ISTQB CTFL v4.0, 8-value convention) |
+| Technique | 3-point boundary testing |
 | Status | Pass |
 
 #### Purpose
 
-Check that age 19, one above the minimum (neighbour of boundary value 18), is accepted.
+I want to check age 19, which is just inside the minimum.
 
 #### Preconditions
 
-The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+The validation form is open in a fresh page. All the other fields use our baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
 | Age | `19` |
-| Other fields | Agreed valid baseline |
+| Other fields | Baseline |
 
 #### Steps
 
-1. Open (restore) the validation form.
-2. Enter the agreed baseline.
-3. Replace age with `19` (typed).
-4. Select Submit.
-5. Observe the response.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the age to `19`.
+4. Click Submit.
+5. See what happens.
 
 #### Expected Result
 
-Age 19 is accepted: the form submits and the server reports valid input with Age 19.
+Age 19 should be accepted. The form should submit and the server should say the input is valid.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:22:49 pm. The form submitted to the server (`/submit`). The server's Validation Report said: "Valid Input | Your Input passed validation". The "You submitted" section listed Age `19`. The input passed server validation.
+Ran at 2:22 pm. The form went through to the server. The Validation Report said "Valid Input: Your Input passed validation" and under "You submitted" the age was 19.
 
 #### Evidence
 
@@ -835,39 +840,39 @@ Executed 8 Nov 2026, 2:22:49 pm. The form submitted to the server (`/submit`). T
 | Test type | Positive |
 | Tester | member-a |
 | Website | Test Pages validation form |
-| Technique | 3-point boundary testing (ISTQB CTFL v4.0, 8-value convention) |
+| Technique | 3-point boundary testing |
 | Status | Pass |
 
 #### Purpose
 
-Check that age 79, one below the maximum (neighbour of boundary value 80), is accepted.
+I want to check age 79, which is just inside the maximum.
 
 #### Preconditions
 
-The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+The validation form is open in a fresh page. All the other fields use our baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
 | Age | `79` |
-| Other fields | Agreed valid baseline |
+| Other fields | Baseline |
 
 #### Steps
 
-1. Open (restore) the validation form.
-2. Enter the agreed baseline.
-3. Replace age with `79` (typed).
-4. Select Submit.
-5. Observe the response.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the age to `79`.
+4. Click Submit.
+5. See what happens.
 
 #### Expected Result
 
-Age 79 is accepted: the form submits and the server reports valid input with Age 79.
+Age 79 should be accepted. The form should submit and the server should say the input is valid.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:22:56 pm. The form submitted to the server (`/submit`). The server's Validation Report said: "Valid Input | Your Input passed validation". The "You submitted" section listed Age `79`. The input passed server validation.
+Ran at 2:22 pm. The form went through to the server. The Validation Report said "Valid Input: Your Input passed validation" and under "You submitted" the age was 79.
 
 #### Evidence
 
@@ -882,39 +887,39 @@ Executed 8 Nov 2026, 2:22:56 pm. The form submitted to the server (`/submit`). T
 | Test type | Negative |
 | Tester | member-a |
 | Website | Test Pages validation form |
-| Technique | 3-point boundary testing (ISTQB CTFL v4.0, 8-value convention) |
+| Technique | 3-point boundary testing |
 | Status | Pass |
 
 #### Purpose
 
-Check that age 82, two above the maximum (neighbour of boundary value 81), is rejected.
+I want to check age 82, which is next to boundary value 81.
 
 #### Preconditions
 
-The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+The validation form is open in a fresh page. All the other fields use our baseline (`Alexa` / `TestingStudent` / `30` / `Singapore` / `Manual testing classroom exercise`).
 
 #### Test Data
 
 | Field | Value |
 |---|---|
 | Age | `82` |
-| Other fields | Agreed valid baseline |
+| Other fields | Baseline |
 
 #### Steps
 
-1. Open (restore) the validation form.
-2. Enter the agreed baseline.
-3. Replace age with `82` (typed).
-4. Select Submit.
-5. Observe the response.
+1. Open the form.
+2. Fill in the baseline.
+3. Change only the age to `82`.
+4. Click Submit.
+5. See what happens.
 
 #### Expected Result
 
-Age 82 is rejected because it is above 80 (submission prevented or a validation error returned).
+Age 82 should be rejected because it is above 80. Either the form is blocked or the server gives an error.
 
 #### Actual Result
 
-Executed 8 Nov 2026, 2:23:02 pm. Selecting Submit did **not** send the form: the page stayed on the form URL and no Validation Report appeared. The browser's built-in (HTML5) validation blocked it with the message `age`: "Value must be less than or equal to 80." The age field contained `82` at submit time. This rejection came from the browser, not from the server.
+Ran at 2:23 pm. The form did not submit. The browser popped up "Value must be less than or equal to 80." next to the age box and I stayed on the form page. This was the browser's own check (the HTML `min`/`max` on the field), so the server never got this value.
 
 #### Evidence
 
@@ -922,15 +927,14 @@ Executed 8 Nov 2026, 2:23:02 pm. Selecting Submit did **not** send the form: the
 
 ---
 
+### Comparing the three methods
 
-### Coverage Comparison
-
-| Technique | Positive values | Negative values | Result |
+| Method | Valid values | Invalid values | Result |
 |---|---|---|---|
 | Equivalence partitioning | 30 | 10, 90 | All as expected |
-| 2-point BVA | 18, 80 | 17, 81 | All as expected |
-| 3-point BVA | 18, 19, 79, 80 | 16, 17, 81, 82 | All as expected |
+| 2-point boundary | 18, 80 | 17, 81 | All as expected |
+| 3-point boundary | 18, 19, 79, 80 | 16, 17, 81, 82 | All as expected |
 
-### Discussion Checkpoint
+### Discussion
 
-3-point testing added the values just inside each edge (19, 79) and just outside the invalid boundary values (16, 82). These would catch off-by-one mistakes that only shift a boundary by one, or a rule written as `== 18` by accident. It still does not prove every input works: we tested 12 of the many possible values, only whole numbers, only one browser, and only the browser-side path. Decimals (e.g. 18.5), negative numbers, very long numbers, and what the **server** does with 17 or 81 when the browser checks are bypassed remain untested.
+3-point testing added the values just inside the range (19 and 79) and one step further out (16 and 82). These would catch off-by-one mistakes that 2-point might miss. But it still does not prove every input works. I only tried 12 whole numbers, in one browser, through the normal page. I did not try decimals like 18.5, negative numbers, very big numbers, or what the server does if the browser check is skipped.
