@@ -522,4 +522,203 @@ Testing only 25, 40 and 60 would choose three values from the **same** valid par
 
 ## 2-Point Boundary Tests
 
+Transitions: `17 → 18` (invalid → valid) and `80 → 81` (valid → invalid). Values tested: 17, 18, 80, 81. In this solo submission member-a executes all four (the brief splits them across A–D).
+
+### Test ID: AGE-2P-17-A
+
+| Item | Details |
+|---|---|
+| Test type | Negative |
+| Tester | member-a |
+| Website | Test Pages validation form |
+| Technique | 2-point boundary testing |
+| Status | Pass |
+
+#### Purpose
+
+Check that age 17, immediately below the minimum of 18, is rejected.
+
+#### Preconditions
+
+The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+
+#### Test Data
+
+| Field | Value |
+|---|---|
+| Age | `17` |
+| Other fields | Agreed valid baseline |
+
+#### Steps
+
+1. Open (restore) the validation form.
+2. Enter the agreed baseline.
+3. Replace age with `17` (typed).
+4. Select Submit.
+5. Observe the response.
+
+#### Expected Result
+
+Age 17 is rejected because it is below 18 (submission prevented or a validation error returned).
+
+#### Actual Result
+
+Executed 8 Nov 2026, 2:22:19 pm. Selecting Submit did **not** send the form: the page stayed on the form URL and no Validation Report appeared. The browser's built-in (HTML5) validation blocked it with the message `age`: "Value must be greater than or equal to 18." The age field contained `17` at submit time. This rejection came from the browser, not from the server.
+
+#### Evidence
+
+[View screenshot](../evidence/member-a/age-2p-17-a.png)
+
+---
+
+### Test ID: AGE-2P-18-A
+
+| Item | Details |
+|---|---|
+| Test type | Positive |
+| Tester | member-a |
+| Website | Test Pages validation form |
+| Technique | 2-point boundary testing |
+| Status | Pass |
+
+#### Purpose
+
+Check that age 18, the minimum valid age, is accepted.
+
+#### Preconditions
+
+The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+
+#### Test Data
+
+| Field | Value |
+|---|---|
+| Age | `18` |
+| Other fields | Agreed valid baseline |
+
+#### Steps
+
+1. Open (restore) the validation form.
+2. Enter the agreed baseline.
+3. Replace age with `18` (typed).
+4. Select Submit.
+5. Observe the response.
+
+#### Expected Result
+
+Age 18 is accepted: the form submits and the server reports valid input with Age 18.
+
+#### Actual Result
+
+Executed 8 Nov 2026, 2:22:25 pm. The form submitted to the server (`/submit`). The server's Validation Report said: "Valid Input | Your Input passed validation". The "You submitted" section listed Age `18`. The input passed server validation.
+
+#### Evidence
+
+[View screenshot](../evidence/member-a/age-2p-18-a.png)
+
+---
+
+### Test ID: AGE-2P-80-A
+
+| Item | Details |
+|---|---|
+| Test type | Positive |
+| Tester | member-a |
+| Website | Test Pages validation form |
+| Technique | 2-point boundary testing |
+| Status | Pass |
+
+#### Purpose
+
+Check that age 80, the maximum valid age, is accepted.
+
+#### Preconditions
+
+The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+
+#### Test Data
+
+| Field | Value |
+|---|---|
+| Age | `80` |
+| Other fields | Agreed valid baseline |
+
+#### Steps
+
+1. Open (restore) the validation form.
+2. Enter the agreed baseline.
+3. Replace age with `80` (typed).
+4. Select Submit.
+5. Observe the response.
+
+#### Expected Result
+
+Age 80 is accepted: the form submits and the server reports valid input with Age 80.
+
+#### Actual Result
+
+Executed 8 Nov 2026, 2:22:31 pm. The form submitted to the server (`/submit`). The server's Validation Report said: "Valid Input | Your Input passed validation". The "You submitted" section listed Age `80`. The input passed server validation.
+
+#### Evidence
+
+[View screenshot](../evidence/member-a/age-2p-80-a.png)
+
+---
+
+### Test ID: AGE-2P-81-A
+
+| Item | Details |
+|---|---|
+| Test type | Negative |
+| Tester | member-a |
+| Website | Test Pages validation form |
+| Technique | 2-point boundary testing |
+| Status | Pass |
+
+#### Purpose
+
+Check that age 81, immediately above the maximum of 80, is rejected.
+
+#### Preconditions
+
+The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+
+#### Test Data
+
+| Field | Value |
+|---|---|
+| Age | `81` |
+| Other fields | Agreed valid baseline |
+
+#### Steps
+
+1. Open (restore) the validation form.
+2. Enter the agreed baseline.
+3. Replace age with `81` (typed).
+4. Select Submit.
+5. Observe the response.
+
+#### Expected Result
+
+Age 81 is rejected because it is above 80 (submission prevented or a validation error returned).
+
+#### Actual Result
+
+Executed 8 Nov 2026, 2:22:37 pm. Selecting Submit did **not** send the form: the page stayed on the form URL and no Validation Report appeared. The browser's built-in (HTML5) validation blocked it with the message `age`: "Value must be less than or equal to 80." The age field contained `81` at submit time. This rejection came from the browser, not from the server.
+
+#### Evidence
+
+[View screenshot](../evidence/member-a/age-2p-81-a.png)
+
+---
+
+
+### Interpretation
+
+- **Why is 18 a positive boundary test?** 18 is a valid input (the lowest allowed age), so the expected result is acceptance. It would catch a mistake such as `age > 18` instead of `age >= 18`; testing 30 would not.
+- **Why is 17 a negative boundary test?** 17 is invalid input. The test passes when the form rejects it, which it did.
+- **Why is testing only 18 and 80 incomplete?** They only show that the valid edges are accepted. Without 17 and 81 we would not know whether the invalid side of each edge is rejected (for example a check written as `age >= 17` would still accept 18).
+
+Observation: on this form the rejections of 17 and 81 came from the browser's HTML5 `min="18" max="80"` attributes, before the request reached the server. The page's own JavaScript check (visible in the page source) only rejects ages below 16 or above 100, so the three layers of validation do not agree. Server-side behaviour for 17 and 81 was **not** tested, because that needs requests outside normal browser use.
+
 ## 3-Point Boundary Tests
