@@ -252,6 +252,274 @@ The invalid attempt did not block the later valid login.
 
 ## Equivalence Partitioning
 
+### Requirements Checked
+
+Read on 8 Nov 2026 from the [instructions page](https://testpages.eviltester.com/apps/client-server-form-validation/client-server-form-validation-instructions/): firstname must be filled and be less than 90 chars; surname between 11 and 79 chars; age between 18 and 80; notes max 2000; country from list. Classroom model used: **age is a whole number, 18 ≤ age ≤ 80**.
+
+### Baseline Check
+
+| Attempt | First name | Result |
+|---|---|---|
+| Brief's baseline | `Alex` | Submitted, but the server returned **"Firstname Error — Firstname too short"**. [Screenshot](../evidence/member-a/base-01-alex.png) |
+| Adjusted baseline | `Alexa` | Submitted, server returned **"Valid Input — Your Input passed validation"**. [Screenshot](../evidence/member-a/base-02-alexa.png) |
+
+The brief's baseline failed although `Alex` (4 characters) meets the published rule "firstname must be filled". So the baseline was changed to `Alexa` (5 characters), with every other field unchanged, so that age tests are not affected by a first-name error. Requirement question raised in [team-plan.md](../team-plan.md#agreed-baseline-data). The first-name behaviour is investigated further in my [self-designed tests](../exploratory/member-a.md).
+
+### Partitions
+
+| Partition | Whole-number age group | Representative | Test type | Expected |
+|---|---|---:|---|---|
+| EP-01 | Below 18 | 10 | Negative | Reject |
+| EP-02 | 18–80 inclusive | 30 | Positive | Accept |
+| EP-03 | Above 80 | 90 | Negative | Reject |
+
+"Reject" means successful submission is prevented, or the server returns a validation error for age.
+
+### Test ID: AGE-EP-30-A
+
+| Item | Details |
+|---|---|
+| Test type | Positive |
+| Tester | member-a |
+| Website | Test Pages validation form |
+| Technique | Equivalence partitioning (EP-02: 18–80) |
+| Status | Pass |
+
+#### Purpose
+
+Check that a representative age inside the valid partition is accepted.
+
+#### Preconditions
+
+The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+
+#### Test Data
+
+| Field | Value |
+|---|---|
+| Age | `30` |
+| Other fields | Agreed valid baseline |
+
+#### Steps
+
+1. Open (restore) the validation form.
+2. Enter the agreed baseline.
+3. Replace age with `30` (typed).
+4. Select Submit.
+5. Observe the response.
+
+#### Expected Result
+
+Age 30 is accepted: the form submits and the server reports valid input with Age 30.
+
+#### Actual Result
+
+Executed 8 Nov 2026, 2:20:33 pm. The form submitted to the server (`/submit`). The server's Validation Report said: "Valid Input | Your Input passed validation". The "You submitted" section listed Age `30`. The input passed server validation.
+
+#### Evidence
+
+[View screenshot](../evidence/member-a/age-ep-30-a.png)
+
+---
+
+### Test ID: AGE-EP-10-A
+
+| Item | Details |
+|---|---|
+| Test type | Negative |
+| Tester | member-a |
+| Website | Test Pages validation form |
+| Technique | Equivalence partitioning (EP-01: below 18) |
+| Status | Pass |
+
+#### Purpose
+
+Check that a representative age below the valid partition is rejected.
+
+#### Preconditions
+
+The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+
+#### Test Data
+
+| Field | Value |
+|---|---|
+| Age | `10` |
+| Other fields | Agreed valid baseline |
+
+#### Steps
+
+1. Open (restore) the validation form.
+2. Enter the agreed baseline.
+3. Replace age with `10` (typed).
+4. Select Submit.
+5. Observe the response.
+
+#### Expected Result
+
+Age 10 is rejected because it is below the minimum of 18 (submission prevented or a validation error returned).
+
+#### Actual Result
+
+Executed 8 Nov 2026, 2:20:39 pm. Selecting Submit did **not** send the form: the page stayed on the form URL and no Validation Report appeared. The browser's built-in (HTML5) validation blocked it with the message `age`: "Value must be greater than or equal to 18." The age field contained `10` at submit time. This rejection came from the browser, not from the server.
+
+#### Evidence
+
+[View screenshot](../evidence/member-a/age-ep-10-a.png)
+
+---
+
+### Test ID: AGE-EP-90-A
+
+| Item | Details |
+|---|---|
+| Test type | Negative |
+| Tester | member-a |
+| Website | Test Pages validation form |
+| Technique | Equivalence partitioning (EP-03: above 80) |
+| Status | Pass |
+
+#### Purpose
+
+Check that a representative age above the valid partition is rejected.
+
+#### Preconditions
+
+The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+
+#### Test Data
+
+| Field | Value |
+|---|---|
+| Age | `90` |
+| Other fields | Agreed valid baseline |
+
+#### Steps
+
+1. Open (restore) the validation form.
+2. Enter the agreed baseline.
+3. Replace age with `90` (typed).
+4. Select Submit.
+5. Observe the response.
+
+#### Expected Result
+
+Age 90 is rejected because it is above the maximum of 80 (submission prevented or a validation error returned).
+
+#### Actual Result
+
+Executed 8 Nov 2026, 2:20:45 pm. Selecting Submit did **not** send the form: the page stayed on the form URL and no Validation Report appeared. The browser's built-in (HTML5) validation blocked it with the message `age`: "Value must be less than or equal to 80." The age field contained `90` at submit time. This rejection came from the browser, not from the server.
+
+#### Evidence
+
+[View screenshot](../evidence/member-a/age-ep-90-a.png)
+
+---
+
+### Test ID: AGE-FMT-BLANK-A
+
+| Item | Details |
+|---|---|
+| Test type | Negative (input-format observation) |
+| Tester | member-a |
+| Website | Test Pages validation form |
+| Technique | Input-format observation |
+| Status | Observation only |
+
+#### Purpose
+
+Observe how the form handles a blank age.
+
+#### Preconditions
+
+The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+
+#### Test Data
+
+| Field | Value |
+|---|---|
+| Age | Empty |
+| Other fields | Agreed valid baseline |
+
+#### Steps
+
+1. Open (restore) the validation form.
+2. Enter the agreed baseline.
+3. Clear the age field and leave it empty.
+4. Select Submit.
+5. Observe the response.
+
+#### Expected Result
+
+Requirement question: the published requirements say "age between 18 and 80" but do not say whether age is mandatory. Observe whether blank age is prevented, cleared or rejected, and what feedback appears.
+
+#### Actual Result
+
+Executed 8 Nov 2026, 2:20:51 pm. Selecting Submit did **not** send the form: the page stayed on the form URL and no Validation Report appeared. The browser's built-in (HTML5) validation blocked it with the message `age`: "Please fill out this field." The age field contained `(empty)` at submit time. This rejection came from the browser, not from the server.
+
+Observation: blank age is treated as required. The `required` attribute on the age field (HTML5) is what blocks it. The published requirement list does not state that age is required, so this is recorded as an observation, not Pass/Fail.
+
+#### Evidence
+
+[View screenshot](../evidence/member-a/age-fmt-blank-a.png)
+
+---
+
+### Test ID: AGE-FMT-ABC-A
+
+| Item | Details |
+|---|---|
+| Test type | Negative (input-format observation) |
+| Tester | member-a |
+| Website | Test Pages validation form |
+| Technique | Input-format observation |
+| Status | Observation only |
+
+#### Purpose
+
+Observe how the form handles non-numeric age input.
+
+#### Preconditions
+
+The validation form is open in a fresh page. All other fields use the agreed valid baseline (First name `Alexa`, Surname `TestingStudent`, Country `Singapore`, Notes `Manual testing classroom exercise`).
+
+#### Test Data
+
+| Field | Value |
+|---|---|
+| Age | `abc` (typed key by key) |
+| Other fields | Agreed valid baseline |
+
+#### Steps
+
+1. Open (restore) the validation form.
+2. Enter the agreed baseline.
+3. Clear the age field and type `abc`.
+4. Select Submit.
+5. Observe the response.
+
+#### Expected Result
+
+Requirement question: the requirements do not describe non-numeric input. Observe whether `abc` can be entered and how it is handled.
+
+#### Actual Result
+
+Executed 8 Nov 2026, 2:20:57 pm. Selecting Submit did **not** send the form: the page stayed on the form URL and no Validation Report appeared. The browser's built-in (HTML5) validation blocked it with the message `age`: "Please fill out this field." The age field contained `(empty)` at submit time. This rejection came from the browser, not from the server.
+
+Observation: the letters could not be entered. The age field is an HTML `type="number"` input, so the browser discarded the typed letters and the field stayed empty. The form was then blocked as an empty required field. The input was **prevented by the browser**; the server never saw `abc`.
+
+#### Evidence
+
+[View screenshot](../evidence/member-a/age-fmt-abc-a.png)
+
+---
+
+
+### Discussion Checkpoint
+
+Testing only 25, 40 and 60 would choose three values from the **same** valid partition (18–80). Each would be expected to behave the same way, so they add almost nothing, and the two invalid partitions (below 18 and above 80) would never be exercised. A form that accepted every age would pass all three tests.
+
+
 ## 2-Point Boundary Tests
 
 ## 3-Point Boundary Tests

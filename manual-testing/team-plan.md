@@ -27,7 +27,20 @@ Test IDs keep the brief's format with the `-A` suffix, e.g. `AGE-2P-18-A`.
 
 ## Agreed Baseline Data
 
-To be confirmed on the live form before testing.
+| Field | Baseline value |
+|---|---|
+| First name | `Alexa` (changed from the brief's `Alex`, see below) |
+| Surname | `TestingStudent` |
+| Age | `30` |
+| Country | `Singapore` |
+| Notes | `Manual testing classroom exercise` |
+
+Baseline check on 8 Nov 2026:
+
+- With the brief's first name `Alex` the server returned "Firstname too short", so the baseline did **not** succeed.
+- With `Alexa` the server returned "Valid Input — Your Input passed validation".
+
+**Requirement question (to raise with the Tutor):** the published rule only says "firstname must be filled" and "less than 90 chars". The server rejected a 4-character first name. Is there an unpublished minimum length, or is this a defect? Until answered, `Alexa` is used so that age tests are isolated from first-name validation.
 
 ## Open-Ended Testing Allocation
 
