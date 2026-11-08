@@ -44,7 +44,11 @@ Baseline check on 8 Nov 2026:
 
 ## Open-Ended Testing Allocation
 
-To be decided after the guided activities.
+### Member A — Open-Ended Testing
+
+- Chosen area: First name and Surname length validation on the Test Pages form.
+- Question to investigate: Do the client-side and server-side length checks match the published rules (first name filled and < 90 chars; surname 11–79 chars)? Why was the baseline first name `Alex` rejected?
+- Record: [exploratory/member-a.md](exploratory/member-a.md)
 
 ## Repository Integration Arrangements
 
